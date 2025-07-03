@@ -1,3 +1,14 @@
+// 全局函数
+function scrollToTripSelector() {
+    const tripSelector = document.getElementById('tripSelector');
+    if (tripSelector) {
+        tripSelector.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
 // 应用状态管理
 class OwlApp {
     constructor() {

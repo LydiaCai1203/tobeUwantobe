@@ -623,8 +623,6 @@ body::after {
     will-change: transform, opacity;
 }
 
-
-
 .plan-actions.show {
     opacity: 1;
     visibility: visible;
@@ -1603,4 +1601,515 @@ body::after {
     max-width: 150px;
     padding: 0.8rem 1rem;
     font-size: 0.9rem;
+}
+
+/* 欢迎横幅样式 */
+.welcome-banner {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 248, 255, 0.9) 100%);
+    border-radius: 25px;
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 15px 40px rgba(76, 175, 80, 0.15);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(76, 175, 80, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(76, 175, 80, 0.05) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.welcome-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-title {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.title-main {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #2d5016;
+    text-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+    margin-bottom: 0.5rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.title-sub {
+    font-size: 1.2rem;
+    color: #689f38;
+    font-weight: 500;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.welcome-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4a6741;
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.welcome-stats {
+    display: flex;
+    gap: 2rem;
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #4caf50;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #689f38;
+    margin-top: 0.5rem;
+}
+
+.welcome-actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    animation: fadeInUp 1s ease-out 0.8s both;
+}
+
+.btn-explore {
+    background: linear-gradient(135deg, #4caf50, #8bc34a);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-explore::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-explore:hover::before {
+    left: 100%;
+}
+
+.btn-explore:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
+}
+
+.btn-explore:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: #689f38;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.scroll-hint i {
+    font-size: 1.2rem;
+    animation: float 2s ease-in-out infinite;
+}
+
+.welcome-visual {
+    position: relative;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.floating-item {
+    position: absolute;
+    font-size: 2rem;
+    animation: float 3s ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+.floating-item:nth-child(1) { top: 10%; left: 20%; }
+.floating-item:nth-child(2) { top: 30%; right: 15%; }
+.floating-item:nth-child(3) { bottom: 20%; left: 10%; }
+.floating-item:nth-child(4) { bottom: 40%; right: 25%; }
+
+.hero-image {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.frog-character {
+    font-size: 4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: gentle-bounce 2s ease-in-out infinite;
+    z-index: 2;
+}
+
+.travel-scene {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.mountain {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3rem;
+    animation: fadeInUp 1s ease-out 0.8s both;
+}
+
+.sun {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    font-size: 2rem;
+    animation: rotate 10s linear infinite;
+}
+
+.clouds {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+}
+
+.clouds span {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    animation: float 4s ease-in-out infinite;
+}
+
+.clouds span:nth-child(2) {
+    animation-delay: 2s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 特色功能区域样式 */
+.features-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d5016;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(76, 175, 80, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.feature-card:hover::before {
+    left: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(76, 175, 80, 0.2);
+    border-color: #4caf50;
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4caf50, #8bc34a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
+}
+
+/* 特色功能卡片动画 */
+.feature-card:nth-child(1) { animation: fadeInUp 0.6s ease-out 0.1s both; }
+.feature-card:nth-child(2) { animation: fadeInUp 0.6s ease-out 0.2s both; }
+.feature-card:nth-child(3) { animation: fadeInUp 0.6s ease-out 0.3s both; }
+.feature-card:nth-child(4) { animation: fadeInUp 0.6s ease-out 0.4s both; }
+
+/* 用户推荐卡片动画 */
+.testimonial-card:nth-child(1) { animation: fadeInUp 0.6s ease-out 0.5s both; }
+.testimonial-card:nth-child(2) { animation: fadeInUp 0.6s ease-out 0.6s both; }
+.testimonial-card:nth-child(3) { animation: fadeInUp 0.6s ease-out 0.7s both; }
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2d5016;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: #4a6741;
+    line-height: 1.6;
+}
+
+/* 用户推荐区域样式 */
+.testimonials-section {
+    margin-bottom: 3rem;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(76, 175, 80, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 4rem;
+    color: rgba(76, 175, 80, 0.2);
+    font-family: serif;
+    line-height: 1;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(76, 175, 80, 0.2);
+    border-color: #4caf50;
+}
+
+.testimonial-content {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.testimonial-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #4a6741;
+    font-style: italic;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 2rem;
+}
+
+.author-avatar {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4caf50, #8bc34a);
+    border-radius: 50%;
+    color: white;
+}
+
+.author-info {
+    flex: 1;
+}
+
+.author-name {
+    font-weight: 600;
+    color: #2d5016;
+    font-size: 1rem;
+}
+
+.author-trip {
+    font-size: 0.9rem;
+    color: #689f38;
+    margin-top: 0.2rem;
+}
+
+.testimonial-rating {
+    color: #ffc107;
+    font-size: 0.9rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .welcome-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .title-main {
+        font-size: 2rem;
+    }
+    
+    .welcome-stats {
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .welcome-visual {
+        height: 200px;
+    }
+    
+    .frog-character {
+        font-size: 3rem;
+    }
+    
+    .mountain {
+        font-size: 2rem;
+    }
+    
+    .welcome-actions {
+        margin-top: 1.5rem;
+    }
+    
+    .btn-explore {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .scroll-hint {
+        font-size: 0.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .feature-card,
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+    
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
 } 
