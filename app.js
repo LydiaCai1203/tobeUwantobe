@@ -4,6 +4,7 @@ class OwlApp {
         this.currentTrip = null;
         this.currentLocation = null;
         this.currentPlanIndex = 0;
+        this.currentActionPlanIndex = undefined;
         this.locationPermission = false;
         this.watchId = null;
         this.reminderTimeouts = [];
@@ -20,6 +21,7 @@ class OwlApp {
         this.updateCurrentTime();
         this.checkLocationPermission();
         this.initSharedComments();
+        this.createPlanActions(); // 创建蒙版
         setInterval(() => this.updateCurrentTime(), 1000);
     }
 
@@ -466,6 +468,13 @@ class OwlApp {
         
         document.getElementById('totalCount').textContent = totalCount;
         document.getElementById('completedCount').textContent = completedCount;
+        
+        // 更新进度条
+        const progressFill = document.getElementById('progressFill');
+        if (progressFill) {
+            const progressPercentage = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
+            progressFill.style.width = `${progressPercentage}%`;
+        }
     }
 
     // 创建时间线项目
@@ -513,32 +522,10 @@ class OwlApp {
                 <i class="fas fa-map-marker-alt"></i>
                 <span>${plan.location}</span>
             </div>
-            <div class="plan-actions" id="planActions${index}">
-                <button class="plan-action-btn navigation" onclick="window.owlApp.showNavigation(${index})">
-                    <i class="fas fa-route"></i>
-                    查看路线
-                </button>
-                <button class="plan-action-btn taxi" onclick="window.owlApp.openTaxi(${index})">
-                    <i class="fas fa-taxi"></i>
-                    打车
-                </button>
-                <button class="plan-action-btn comment" onclick="window.owlApp.showComments(${index})">
-                    <i class="fas fa-comments"></i>
-                    评论
-                </button>
-                <button class="${completeBtnClass}" onclick="window.owlApp.togglePlanComplete(${index})">
-                    <i class="fas fa-check"></i>
-                    ${completeBtnText}
-                </button>
-            </div>
         `;
 
         // 添加点击事件
         item.addEventListener('click', (e) => {
-            // 如果点击的是操作按钮，不触发计划点击事件
-            if (e.target.closest('.plan-actions')) {
-                return;
-            }
             this.togglePlanActions(index);
         });
 
@@ -548,10 +535,10 @@ class OwlApp {
     // 获取类型文本
     getTypeText(type) {
         const typeMap = {
-            'transport': '🚗 出行',
-            'activity': '🎯 探险',
-            'food': '🍽️ 觅食',
-            'accommodation': '🏠 休息'
+            'transport': '交通',
+            'activity': '游玩',
+            'food': '餐食',
+            'accommodation': '住宿'
         };
         return typeMap[type] || type;
     }
@@ -1154,15 +1141,15 @@ class OwlApp {
         // 这里应该调用真实的地理编码API
         // 现在使用Mock数据
         const mockAddresses = [
-            '🌸 樱花盛开的上海浦东机场',
-            '🗾 富士山脚下的成田机场',
-            '🏮 灯火通明的新宿酒店',
-            '⛩️ 古朴典雅的浅草寺',
-            '🌃 繁华热闹的银座街头',
-            '🏯 古都风韵的北京首都机场',
-            '🎋 韩风浓郁的仁川机场',
-            '🏨 现代时尚的首尔酒店',
-            '🛍️ 购物天堂明洞街区'
+            '上海市浦东新区浦东国际机场',
+            '东京都成田市成田国际机场',
+            '东京都新宿区希尔顿酒店',
+            '东京都台东区浅草寺',
+            '东京都中央区银座',
+            '北京市顺义区首都国际机场',
+            '首尔特别市仁川国际机场',
+            '首尔特别市中区威斯汀酒店',
+            '首尔特别市中区明洞'
         ];
         
         const randomAddress = mockAddresses[Math.floor(Math.random() * mockAddresses.length)];
@@ -1295,6 +1282,13 @@ class OwlApp {
         }
     }
 
+    // 从侧边栏切换计划完成状态
+    togglePlanCompleteFromSidebar() {
+        if (this.currentActionPlanIndex !== undefined) {
+            this.togglePlanComplete(this.currentActionPlanIndex);
+        }
+    }
+    
     // 切换计划完成状态
     togglePlanComplete(index) {
         const tripData = this.getTripData();
@@ -1324,7 +1318,10 @@ class OwlApp {
             // 调整后续计划时间
             this.adjustPlanTimes(index);
             
-            this.showModal('计划完成', `恭喜！您已完成 ${plan.title} 及之前的所有计划`);
+            // 添加完成动画效果
+            this.showCompletionAnimation(plan.title);
+            
+            this.showModal('🌿 计划完成！', `恭喜！您已完成 ${plan.title} 及之前的所有计划`);
         }
         
         // 重新生成时间线以更新显示
@@ -1332,6 +1329,25 @@ class OwlApp {
         
         // 隐藏操作按钮
         this.hideAllPlanActions();
+    }
+
+    // 显示完成动画
+    showCompletionAnimation(planTitle) {
+        const animation = document.createElement('div');
+        animation.className = 'completion-animation';
+        animation.innerHTML = `
+            <div class="completion-content">
+                <div class="completion-icon">🐸</div>
+                <div class="completion-text">计划完成！</div>
+                <div class="completion-plan">${planTitle}</div>
+            </div>
+        `;
+        document.body.appendChild(animation);
+        
+        // 3秒后移除动画
+        setTimeout(() => {
+            animation.remove();
+        }, 3000);
     }
 
     // 调整计划时间
@@ -1503,11 +1519,127 @@ class OwlApp {
         this.showModal('调整完成', `已删除 ${plansToRemove.length} 个计划项目，行程已优化。`);
     }
 
+    // 创建计划操作按钮
+    createPlanActions() {
+        // 创建蒙版
+        const overlay = document.createElement('div');
+        overlay.className = 'plan-actions-overlay';
+        document.body.appendChild(overlay);
+        
+        // 点击蒙版关闭按钮
+        overlay.addEventListener('click', () => {
+            this.hideAllPlanActions();
+        });
+    }
+    
+    // 显示计划操作按钮
+    showPlanActions(index) {
+        const tripData = this.getTripData();
+        const plan = tripData[index];
+        
+        if (!plan) return;
+        
+        // 隐藏所有现有的按钮
+        this.hideAllPlanActions();
+        
+        // 获取当前计划项目元素
+        const timelineItem = document.querySelector(`[data-index="${index}"]`);
+        if (!timelineItem) return;
+        
+        // 创建按钮容器
+        const planActions = document.createElement('div');
+        planActions.className = 'plan-actions';
+        
+        // 获取完成按钮的文本和样式
+        const isCompleted = this.completedPlans.has(index);
+        const completeBtnText = isCompleted ? '已完成' : '标记完成';
+        const completeBtnClass = isCompleted ? 'plan-action-btn complete completed' : 'plan-action-btn complete';
+        
+        planActions.innerHTML = `
+            <button class="plan-action-btn navigation" onclick="window.owlApp.showNavigationFromSidebar()">
+                <i class="fas fa-route"></i>
+                查看路线
+            </button>
+            <button class="plan-action-btn taxi" onclick="window.owlApp.openTaxiFromSidebar()">
+                <i class="fas fa-taxi"></i>
+                打车
+            </button>
+            <button class="plan-action-btn comment" onclick="window.owlApp.showCommentsFromSidebar()">
+                <i class="fas fa-comments"></i>
+                评论
+            </button>
+            <button class="${completeBtnClass}" onclick="window.owlApp.togglePlanCompleteFromSidebar()">
+                <i class="fas fa-check"></i>
+                ${completeBtnText}
+            </button>
+        `;
+        
+        // 将按钮添加到计划项目中
+        timelineItem.appendChild(planActions);
+        
+        // 计算最佳位置
+        this.adjustPlanActionsPosition(planActions, timelineItem);
+        
+        // 保存当前选中的计划索引
+        this.currentActionPlanIndex = index;
+        
+        // 显示蒙版
+        const overlay = document.querySelector('.plan-actions-overlay');
+        if (overlay) {
+            overlay.classList.add('show');
+        }
+        
+        // 延迟显示按钮，确保DOM已更新
+        setTimeout(() => {
+            planActions.classList.add('show');
+        }, 10);
+    }
+    
+    // 调整计划操作按钮的位置
+    adjustPlanActionsPosition(planActions, timelineItem) {
+        // 获取元素位置信息
+        const timelineRect = timelineItem.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        // 计算弹窗的预估高度（4个按钮 + 间距 + 内边距）
+        const estimatedHeight = 4 * 40 + 3 * 8 + 32; // 按钮高度 + 间距 + 内边距
+        
+        // 检查是否会超出视口底部
+        const wouldOverflowBottom = timelineRect.top + estimatedHeight > viewportHeight - 20; // 留20px边距
+        
+        // 如果会超出底部，则对齐到底部
+        if (wouldOverflowBottom) {
+            planActions.classList.add('bottom-aligned');
+        }
+        
+        // 监听窗口大小变化，重新调整位置
+        const resizeHandler = () => {
+            this.adjustPlanActionsPosition(planActions, timelineItem);
+        };
+        
+        // 添加一次性事件监听器
+        window.addEventListener('resize', resizeHandler, { once: true });
+        
+        // 在弹窗关闭时移除事件监听器
+        planActions.addEventListener('remove', () => {
+            window.removeEventListener('resize', resizeHandler);
+        });
+    }
+    
     // 隐藏所有计划操作按钮
     hideAllPlanActions() {
-        document.querySelectorAll('.plan-actions').forEach(actions => {
-            actions.classList.remove('show');
+        const allPlanActions = document.querySelectorAll('.plan-actions');
+        const overlay = document.querySelector('.plan-actions-overlay');
+        
+        // 移除所有按钮
+        allPlanActions.forEach(actions => {
+            actions.remove();
         });
+        
+        // 隐藏蒙版
+        if (overlay) {
+            overlay.classList.remove('show');
+        }
     }
 
     // 返回首页
@@ -1539,6 +1671,13 @@ class OwlApp {
         this.hideAllPlanActions();
     }
 
+    // 从侧边栏显示评论
+    showCommentsFromSidebar() {
+        if (this.currentActionPlanIndex !== undefined) {
+            this.showComments(this.currentActionPlanIndex);
+        }
+    }
+    
     // 显示评论区
     showComments(index) {
         const tripData = this.getTripData();
@@ -1843,16 +1982,25 @@ class OwlApp {
 
     // 切换计划操作按钮显示
     togglePlanActions(index) {
-        // 隐藏所有其他计划的操作按钮
-        this.hideAllPlanActions();
+        // 检查当前计划是否已经有按钮显示
+        const timelineItem = document.querySelector(`[data-index="${index}"]`);
+        const existingActions = timelineItem?.querySelector('.plan-actions');
+        const isVisible = existingActions?.classList.contains('show');
         
-        // 显示当前计划的操作按钮
-        const currentActions = document.getElementById(`planActions${index}`);
-        if (currentActions) {
-            currentActions.classList.toggle('show');
+        if (isVisible) {
+            this.hideAllPlanActions();
+        } else {
+            this.showPlanActions(index);
         }
     }
 
+    // 从侧边栏显示导航
+    showNavigationFromSidebar() {
+        if (this.currentActionPlanIndex !== undefined) {
+            this.showNavigation(this.currentActionPlanIndex);
+        }
+    }
+    
     // 显示导航
     showNavigation(index) {
         const tripData = this.getTripData();
@@ -1873,6 +2021,13 @@ class OwlApp {
         this.showMapModal();
     }
 
+    // 从侧边栏打开打车
+    openTaxiFromSidebar() {
+        if (this.currentActionPlanIndex !== undefined) {
+            this.openTaxi(this.currentActionPlanIndex);
+        }
+    }
+    
     // 打开打车
     openTaxi(index) {
         const tripData = this.getTripData();
@@ -1978,7 +2133,6 @@ class OwlApp {
         // 隐藏取消按钮
         document.getElementById('modalCancel').style.display = 'none';
     }
-=======
 
     // 显示带选项的模态框
     showModalWithOptions(title, message, confirmText, cancelText, onConfirm, onCancel) {
