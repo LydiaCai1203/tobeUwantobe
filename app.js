@@ -33,10 +33,26 @@ class OwlApp {
         this.checkLocationPermission();
         this.initSharedComments();
         this.createPlanActions(); // 创建蒙版
+        this.initAppData(); // 初始化应用数据
         setInterval(() => this.updateCurrentTime(), 1000);
     }
 
+    // 初始化应用数据
+    initAppData() {
+        this.loadProfile();
+        this.loadMoments();
+        this.loadHotTrips();
+        this.loadMyTrips();
+    }
+
     bindEvents() {
+        // 底部导航事件
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                this.switchPage(e.currentTarget.dataset.page);
+            });
+        });
+
         // 行程选择
         document.querySelectorAll('.trip-option').forEach(option => {
             option.addEventListener('click', (e) => {
@@ -49,10 +65,62 @@ class OwlApp {
             this.startTrip();
         });
 
-            // 刷新位置按钮
-    document.getElementById('refreshLocationBtn').addEventListener('click', () => {
-        this.refreshMockLocation();
-    });
+        // 发布动态按钮
+        document.getElementById('postMomentBtn').addEventListener('click', () => {
+            this.showPostMomentModal();
+        });
+
+        // 编辑资料按钮
+        document.getElementById('editProfileBtn').addEventListener('click', () => {
+            this.showEditProfileModal();
+        });
+
+        // 行程标签切换
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.switchTab(e.currentTarget.dataset.tab);
+            });
+        });
+
+        // 模态框事件
+        document.getElementById('editProfileClose').addEventListener('click', () => {
+            this.hideEditProfileModal();
+        });
+
+        document.getElementById('saveProfileBtn').addEventListener('click', () => {
+            this.saveProfile();
+        });
+
+        document.getElementById('cancelEditBtn').addEventListener('click', () => {
+            this.hideEditProfileModal();
+        });
+
+        document.getElementById('postMomentClose').addEventListener('click', () => {
+            this.hidePostMomentModal();
+        });
+
+        document.getElementById('publishMomentBtn').addEventListener('click', () => {
+            this.publishMoment();
+        });
+
+        document.getElementById('cancelPostBtn').addEventListener('click', () => {
+            this.hidePostMomentModal();
+        });
+
+        // 头像上传
+        document.getElementById('avatarUpload').addEventListener('change', (e) => {
+            this.handleAvatarUpload(e.target.files);
+        });
+
+        // 动态图片上传
+        document.getElementById('momentImageUpload').addEventListener('change', (e) => {
+            this.handleMomentImageUpload(e.target.files);
+        });
+
+        // 刷新位置按钮
+        document.getElementById('refreshLocationBtn').addEventListener('click', () => {
+            this.refreshMockLocation();
+        });
 
 
 
@@ -418,26 +486,8 @@ class OwlApp {
             return;
         }
 
-        if (!this.locationPermission) {
-            this.showPermissionModal();
-            return;
-        }
-
-        // 隐藏行程选择，显示时间线
-        document.getElementById('tripSelector').style.display = 'none';
-        document.getElementById('timelineSection').style.display = 'block';
-        
-        // 显示返回首页按钮
-        document.getElementById('backToHomeBtn').style.display = 'flex';
-
-        // 生成时间线
-        this.generateTimeline();
-        
-        // 模拟位置监控（不真正获取位置）
-        this.startMockLocationMonitoring();
-        
-        // 开始计划提醒
-        this.startPlanReminders();
+        // 跳转到旅行页面
+        window.location.href = `trip.html?trip=${this.currentTrip}`;
     }
 
     // 生成时间线
@@ -2381,6 +2431,355 @@ class OwlApp {
         this.reminderTimeouts.forEach(timeoutId => {
             clearTimeout(timeoutId);
         });
+    }
+
+    // 页面切换
+    switchPage(pageName) {
+        // 隐藏所有页面
+        document.querySelectorAll('.page-content').forEach(page => {
+            page.style.display = 'none';
+        });
+
+        // 显示目标页面
+        const targetPage = document.getElementById(pageName + 'Page');
+        if (targetPage) {
+            targetPage.style.display = 'block';
+        }
+
+        // 更新导航状态
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        document.querySelector(`[data-page="${pageName}"]`).classList.add('active');
+    }
+
+    // 标签切换
+    switchTab(tabName) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.getElementById(tabName + 'Trips').classList.add('active');
+    }
+
+    // 加载个人资料
+    loadProfile() {
+        const profile = JSON.parse(localStorage.getItem('userProfile')) || {
+            name: '小青蛙',
+            bio: '热爱旅行的小青蛙 🐸',
+            avatar: 'https://picsum.photos/100/100?random=1'
+        };
+
+        document.getElementById('profileName').textContent = profile.name;
+        document.getElementById('profileBio').textContent = profile.bio;
+        document.getElementById('avatarImg').src = profile.avatar;
+    }
+
+    // 显示编辑资料模态框
+    showEditProfileModal() {
+        const profile = JSON.parse(localStorage.getItem('userProfile')) || {
+            name: '小青蛙',
+            bio: '热爱旅行的小青蛙 🐸'
+        };
+
+        document.getElementById('editName').value = profile.name;
+        document.getElementById('editBio').value = profile.bio;
+        document.getElementById('editProfileModal').style.display = 'flex';
+    }
+
+    // 隐藏编辑资料模态框
+    hideEditProfileModal() {
+        document.getElementById('editProfileModal').style.display = 'none';
+    }
+
+    // 保存个人资料
+    saveProfile() {
+        const name = document.getElementById('editName').value.trim();
+        const bio = document.getElementById('editBio').value.trim();
+
+        if (!name) {
+            alert('请输入昵称');
+            return;
+        }
+
+        const profile = {
+            name: name,
+            bio: bio,
+            avatar: document.getElementById('avatarImg').src
+        };
+
+        localStorage.setItem('userProfile', JSON.stringify(profile));
+        this.loadProfile();
+        this.hideEditProfileModal();
+    }
+
+    // 处理头像上传
+    handleAvatarUpload(files) {
+        if (files.length > 0) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('avatarImg').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // 加载蛙友圈动态
+    loadMoments() {
+        const moments = JSON.parse(localStorage.getItem('moments')) || this.getDefaultMoments();
+        const momentsList = document.getElementById('momentsList');
+        momentsList.innerHTML = '';
+
+        moments.forEach(moment => {
+            const momentElement = this.createMomentElement(moment);
+            momentsList.appendChild(momentElement);
+        });
+    }
+
+    // 获取默认动态数据
+    getDefaultMoments() {
+        return [
+            {
+                id: 1,
+                username: '旅行达人小王',
+                avatar: 'https://picsum.photos/40/40?random=1',
+                content: '今天在日本浅草寺拍了好多美照，传统文化真的太震撼了！',
+                images: ['https://picsum.photos/300/200?random=10'],
+                time: '2小时前',
+                likes: 24,
+                comments: 8
+            },
+            {
+                id: 2,
+                username: '背包客小李',
+                avatar: 'https://picsum.photos/40/40?random=2',
+                content: '韩国首尔的夜景太美了，明洞的美食也超级好吃！',
+                images: ['https://picsum.photos/300/200?random=11', 'https://picsum.photos/300/200?random=12'],
+                time: '5小时前',
+                likes: 18,
+                comments: 5
+            },
+            {
+                id: 3,
+                username: '小青蛙',
+                avatar: 'https://picsum.photos/40/40?random=3',
+                content: '分享一个旅行小贴士：记得提前下载离线地图，这样即使没有网络也能导航哦！',
+                images: [],
+                time: '1天前',
+                likes: 32,
+                comments: 12
+            }
+        ];
+    }
+
+    // 创建动态元素
+    createMomentElement(moment) {
+        const momentDiv = document.createElement('div');
+        momentDiv.className = 'moment-item';
+        momentDiv.innerHTML = `
+            <div class="moment-header">
+                <img src="${moment.avatar}" alt="头像" class="moment-avatar">
+                <div class="moment-user-info">
+                    <div class="moment-username">${moment.username}</div>
+                    <div class="moment-time">${moment.time}</div>
+                </div>
+            </div>
+            <div class="moment-content">${moment.content}</div>
+            ${moment.images.length > 0 ? `
+                <div class="moment-images">
+                    ${moment.images.map(img => `<img src="${img}" alt="动态图片" class="moment-image">`).join('')}
+                </div>
+            ` : ''}
+            <div class="moment-actions">
+                <div class="moment-action">
+                    <i class="far fa-heart"></i>
+                    <span>${moment.likes}</span>
+                </div>
+                <div class="moment-action">
+                    <i class="far fa-comment"></i>
+                    <span>${moment.comments}</span>
+                </div>
+            </div>
+        `;
+        return momentDiv;
+    }
+
+    // 显示发布动态模态框
+    showPostMomentModal() {
+        document.getElementById('postMomentModal').style.display = 'flex';
+        document.getElementById('momentContent').value = '';
+        document.getElementById('momentImagePreview').innerHTML = '';
+    }
+
+    // 隐藏发布动态模态框
+    hidePostMomentModal() {
+        document.getElementById('postMomentModal').style.display = 'none';
+    }
+
+    // 发布动态
+    publishMoment() {
+        const content = document.getElementById('momentContent').value.trim();
+        if (!content) {
+            alert('请输入动态内容');
+            return;
+        }
+
+        const moment = {
+            id: Date.now(),
+            username: JSON.parse(localStorage.getItem('userProfile'))?.name || '小青蛙',
+            avatar: document.getElementById('avatarImg').src,
+            content: content,
+            images: [], // 这里可以添加图片处理逻辑
+            time: '刚刚',
+            likes: 0,
+            comments: 0
+        };
+
+        const moments = JSON.parse(localStorage.getItem('moments')) || [];
+        moments.unshift(moment);
+        localStorage.setItem('moments', JSON.stringify(moments));
+
+        this.loadMoments();
+        this.hidePostMomentModal();
+    }
+
+    // 处理动态图片上传
+    handleMomentImageUpload(files) {
+        const preview = document.getElementById('momentImagePreview');
+        preview.innerHTML = '';
+
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '80px';
+                img.style.height = '80px';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '8px';
+                img.style.marginRight = '8px';
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // 加载热门行程
+    loadHotTrips() {
+        const hotTrips = [
+            {
+                route: '上海 → 日本',
+                duration: '3天2晚',
+                participants: 156,
+                rating: 4.8,
+                description: '樱花季限定行程，包含浅草寺、东京塔等经典景点'
+            },
+            {
+                route: '北京 → 韩国',
+                duration: '2天1晚',
+                participants: 89,
+                rating: 4.6,
+                description: '首尔精华游，明洞购物、景福宫文化体验'
+            },
+            {
+                route: '广州 → 泰国',
+                duration: '4天3晚',
+                participants: 234,
+                rating: 4.9,
+                description: '曼谷+芭提雅双城游，体验泰式风情'
+            }
+        ];
+
+        const hotTripsList = document.getElementById('hotTripsList');
+        hotTripsList.innerHTML = '';
+
+        hotTrips.forEach(trip => {
+            const tripElement = document.createElement('div');
+            tripElement.className = 'hot-trip-item';
+            tripElement.innerHTML = `
+                <div class="hot-trip-header">
+                    <div class="hot-trip-route">
+                        <i class="fas fa-plane"></i>
+                        <span>${trip.route}</span>
+                    </div>
+                    <div class="hot-trip-stats">
+                        <span>${trip.duration}</span>
+                        <span>${trip.participants}人参与</span>
+                    </div>
+                </div>
+                <div class="hot-trip-description">${trip.description}</div>
+            `;
+            hotTripsList.appendChild(tripElement);
+        });
+    }
+
+    // 加载我的行程
+    loadMyTrips() {
+        const myTrips = JSON.parse(localStorage.getItem('myTrips')) || [
+            {
+                route: '上海 → 日本',
+                status: 'ongoing',
+                progress: 60,
+                startDate: '2024-01-15',
+                endDate: '2024-01-17'
+            },
+            {
+                route: '北京 → 韩国',
+                status: 'completed',
+                progress: 100,
+                startDate: '2024-01-10',
+                endDate: '2024-01-11'
+            }
+        ];
+
+        this.renderMyTrips(myTrips);
+    }
+
+    // 渲染我的行程
+    renderMyTrips(trips) {
+        const ongoingTrips = document.getElementById('ongoingTrips');
+        const completedTrips = document.getElementById('completedTrips');
+
+        ongoingTrips.innerHTML = '';
+        completedTrips.innerHTML = '';
+
+        trips.forEach(trip => {
+            const tripElement = this.createTripElement(trip);
+            if (trip.status === 'ongoing') {
+                ongoingTrips.appendChild(tripElement);
+            } else {
+                completedTrips.appendChild(tripElement);
+            }
+        });
+    }
+
+    // 创建行程元素
+    createTripElement(trip) {
+        const tripDiv = document.createElement('div');
+        tripDiv.className = 'trip-item';
+        tripDiv.innerHTML = `
+            <div class="trip-item-header">
+                <div class="trip-route">${trip.route}</div>
+                <div class="trip-status ${trip.status}">
+                    ${trip.status === 'ongoing' ? '进行中' : '已完成'}
+                </div>
+            </div>
+            <div class="trip-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${trip.progress}%"></div>
+                </div>
+            </div>
+            <div class="trip-info">
+                <span>${trip.startDate} - ${trip.endDate}</span>
+                <span>${trip.progress}% 完成</span>
+            </div>
+        `;
+        return tripDiv;
     }
 }
 

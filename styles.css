@@ -95,10 +95,33 @@ body::after {
 
 /* 主要内容区域 */
 .main-content {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 2rem 1rem;
-    min-height: calc(100vh - 140px);
+    padding: 1rem;
+    min-height: calc(100vh - 140px - 80px); /* 减去头部和底部导航的高度 */
+    padding-bottom: 100px; /* 为底部导航留出空间 */
+}
+
+/* 页面内容 */
+.page-content {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* 页面头部 */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+}
+
+.page-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d5016;
+    margin: 0;
 }
 
 /* 行程选择区域 */
@@ -2111,5 +2134,550 @@ body::after {
         width: 60px;
         height: 60px;
         font-size: 1.5rem;
+    }
+}
+
+/* 底部导航栏 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(76, 175, 80, 0.2);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 0;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(76, 175, 80, 0.1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 60px;
+}
+
+.nav-item i {
+    font-size: 1.2rem;
+    color: #689f38;
+    transition: all 0.3s ease;
+}
+
+.nav-item span {
+    font-size: 0.8rem;
+    color: #689f38;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-item.active {
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.nav-item.active i,
+.nav-item.active span {
+    color: #4caf50;
+}
+
+.nav-item:hover {
+    background: rgba(76, 175, 80, 0.05);
+}
+
+/* 蛙友圈样式 */
+.moments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.moment-item {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.moment-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.moment-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.moment-user-info {
+    flex: 1;
+}
+
+.moment-username {
+    font-weight: 600;
+    color: #2d5016;
+    font-size: 0.9rem;
+}
+
+.moment-time {
+    font-size: 0.8rem;
+    color: #689f38;
+    margin-top: 0.2rem;
+}
+
+.moment-content {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    color: #4a6741;
+}
+
+.moment-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.moment-image {
+    width: 100%;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.moment-image:hover {
+    transform: scale(1.05);
+}
+
+.moment-actions {
+    display: flex;
+    gap: 1rem;
+    border-top: 1px solid rgba(76, 175, 80, 0.1);
+    padding-top: 0.8rem;
+}
+
+.moment-action {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #689f38;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.moment-action:hover {
+    color: #4caf50;
+}
+
+/* 热门行程样式 */
+.hot-trips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hot-trip-item {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(76, 175, 80, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hot-trip-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.15);
+}
+
+.hot-trip-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.hot-trip-route {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #2d5016;
+}
+
+.hot-trip-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #689f38;
+}
+
+.hot-trip-description {
+    color: #4a6741;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* 我的行程样式 */
+.trips-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    color: #689f38;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: #4caf50;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.trip-item {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.trip-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.trip-route {
+    font-weight: 600;
+    color: #2d5016;
+}
+
+.trip-status {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.trip-status.ongoing {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+}
+
+.trip-status.completed {
+    background: rgba(156, 39, 176, 0.1);
+    color: #9c27b0;
+}
+
+.trip-progress {
+    margin-bottom: 0.8rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(76, 175, 80, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.trip-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #689f38;
+}
+
+/* 我的页面样式 */
+.profile-header {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 248, 255, 0.9) 100%);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    text-align: center;
+}
+
+.profile-avatar {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.profile-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(76, 175, 80, 0.3);
+}
+
+.avatar-edit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    background: #4caf50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.avatar-edit:hover {
+    transform: scale(1.1);
+}
+
+.profile-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2d5016;
+    margin-bottom: 0.5rem;
+}
+
+.profile-bio {
+    color: #689f38;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #4caf50;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #689f38;
+    margin-top: 0.2rem;
+}
+
+.profile-menu {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item:hover {
+    background: rgba(76, 175, 80, 0.05);
+}
+
+.menu-item i:first-child {
+    width: 20px;
+    margin-right: 1rem;
+    color: #4caf50;
+}
+
+.menu-item span {
+    flex: 1;
+    color: #2d5016;
+    font-weight: 500;
+}
+
+.menu-item i:last-child {
+    color: #689f38;
+    font-size: 0.8rem;
+}
+
+/* 表单样式 */
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #2d5016;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.8rem;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #2d5016;
+    background: rgba(255, 255, 255, 0.9);
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.avatar-upload {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* 发布动态样式 */
+.post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.post-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: #2d5016;
+    background: rgba(255, 255, 255, 0.9);
+    resize: vertical;
+    min-height: 100px;
+    transition: border-color 0.3s ease;
+}
+
+.post-form textarea:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* 响应式设计补充 */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 0.5rem;
+        padding-bottom: 90px;
+    }
+    
+    .page-header {
+        padding: 0 0.3rem;
+    }
+    
+    .page-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .bottom-nav {
+        padding: 0.3rem 0;
+    }
+    
+    .nav-item {
+        padding: 0.3rem;
+        min-width: 50px;
+    }
+    
+    .nav-item i {
+        font-size: 1rem;
+    }
+    
+    .nav-item span {
+        font-size: 0.7rem;
+    }
+    
+    .profile-header {
+        padding: 1.5rem 1rem;
+    }
+    
+    .profile-avatar img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .profile-stats {
+        gap: 0.5rem;
+    }
+    
+    .menu-item {
+        padding: 0.8rem 1rem;
     }
 } 

@@ -13,380 +13,398 @@
         <div class="header-content">
             <div class="header-left">
                 <h1><i class="fas fa-leaf"></i> 小青蛙的旅行日记</h1>
-                <button class="btn-secondary" id="backToHomeBtn" style="display: none;">
-                    <i class="fas fa-home"></i>
-                    返回首页
-                </button>
             </div>
-            <div class="location-info" id="locationInfo">
-                <i class="fas fa-map-marker-alt"></i>
-                <span id="currentLocation">定位中...</span>
+            <div class="header-right">
+                <div class="location-info" id="locationInfo">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="currentLocation">定位中...</span>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- 主要内容区域 -->
     <main class="main-content">
-        <!-- 欢迎横幅 -->
-        <section class="welcome-banner">
-            <div class="welcome-content">
-                <div class="welcome-text">
-                    <h1 class="welcome-title">
-                        <span class="title-main">🌿 小青蛙的旅行日记</span>
-                        <span class="title-sub">治愈系旅行指南</span>
-                    </h1>
-                    <p class="welcome-description">
-                        跟随小青蛙的脚步，探索世界的美好。每一次旅行都是一次心灵的治愈，
-                        让我们在旅途中发现生活的诗意与远方。
-                    </p>
-                    <div class="welcome-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">1000+</div>
-                            <div class="stat-label">旅行者</div>
+        <!-- 首页内容 -->
+        <div class="page-content" id="homePage">
+            <!-- 欢迎横幅 -->
+            <section class="welcome-banner">
+                <div class="welcome-content">
+                    <div class="welcome-text">
+                        <h1 class="welcome-title">
+                            <span class="title-main">🌿 小青蛙的旅行日记</span>
+                            <span class="title-sub">治愈系旅行指南</span>
+                        </h1>
+                        <p class="welcome-description">
+                            跟随小青蛙的脚步，探索世界的美好。每一次旅行都是一次心灵的治愈，
+                            让我们在旅途中发现生活的诗意与远方。
+                        </p>
+                        <div class="welcome-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">1000+</div>
+                                <div class="stat-label">旅行者</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">50+</div>
+                                <div class="stat-label">目的地</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">满意度</div>
+                            </div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">目的地</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">98%</div>
-                            <div class="stat-label">满意度</div>
+                        <div class="welcome-actions">
+                            <button class="btn-explore" onclick="scrollToTripSelector()">
+                                <i class="fas fa-compass"></i>
+                                开始探索
+                            </button>
+                            <div class="scroll-hint">
+                                <i class="fas fa-chevron-down"></i>
+                                <span>向下滚动发现更多</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="welcome-actions">
-                        <button class="btn-explore" onclick="scrollToTripSelector()">
-                            <i class="fas fa-compass"></i>
-                            开始探索
-                        </button>
-                        <div class="scroll-hint">
-                            <i class="fas fa-chevron-down"></i>
-                            <span>向下滚动发现更多</span>
+                    <div class="welcome-visual">
+                        <div class="floating-elements">
+                            <div class="floating-item" style="--delay: 0s">🌿</div>
+                            <div class="floating-item" style="--delay: 1s">🍃</div>
+                            <div class="floating-item" style="--delay: 2s">🌱</div>
+                            <div class="floating-item" style="--delay: 3s">🌸</div>
                         </div>
-                    </div>
-                </div>
-                <div class="welcome-visual">
-                    <div class="floating-elements">
-                        <div class="floating-item" style="--delay: 0s">🌿</div>
-                        <div class="floating-item" style="--delay: 1s">🍃</div>
-                        <div class="floating-item" style="--delay: 2s">🌱</div>
-                        <div class="floating-item" style="--delay: 3s">🌸</div>
-                    </div>
-                    <div class="hero-image">
-                        <div class="frog-character">🐸</div>
-                        <div class="travel-scene">
-                            <div class="mountain">🏔️</div>
-                            <div class="sun">☀️</div>
-                            <div class="clouds">
-                                <span>☁️</span>
-                                <span>☁️</span>
+                        <div class="hero-image">
+                            <div class="frog-character">🐸</div>
+                            <div class="travel-scene">
+                                <div class="mountain">🏔️</div>
+                                <div class="sun">☀️</div>
+                                <div class="clouds">
+                                    <span>☁️</span>
+                                    <span>☁️</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 特色功能展示 -->
-        <section class="features-section">
-            <h2 class="section-title">✨ 为什么选择小青蛙？</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-map-marked-alt"></i>
+            <!-- 特色功能展示 -->
+            <section class="features-section">
+                <h2 class="section-title">✨ 为什么选择小青蛙？</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>智能导航</h3>
+                        <p>实时定位，精准导航，让您的旅行更加便捷</p>
                     </div>
-                    <h3>智能导航</h3>
-                    <p>实时定位，精准导航，让您的旅行更加便捷</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>时间管理</h3>
+                        <p>科学的时间规划，让您的行程更加高效</p>
                     </div>
-                    <h3>时间管理</h3>
-                    <p>科学的时间规划，让您的行程更加高效</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-comments"></i>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>社区分享</h3>
+                        <p>分享旅行体验，与更多旅行者交流心得</p>
                     </div>
-                    <h3>社区分享</h3>
-                    <p>分享旅行体验，与更多旅行者交流心得</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-heart"></i>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>治愈体验</h3>
+                        <p>温馨的界面设计，让旅行成为一种治愈</p>
                     </div>
-                    <h3>治愈体验</h3>
-                    <p>温馨的界面设计，让旅行成为一种治愈</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 用户推荐 -->
-        <section class="testimonials-section">
-            <h2 class="section-title">💬 旅行者说</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"小青蛙让我的日本之旅变得如此轻松愉快，每一个细节都考虑得很周到！"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">👩‍🦰</div>
-                        <div class="author-info">
-                            <div class="author-name">小雨</div>
-                            <div class="author-trip">日本3日游</div>
+            <!-- 用户推荐 -->
+            <section class="testimonials-section">
+                <h2 class="section-title">💬 旅行者说</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"小青蛙让我的日本之旅变得如此轻松愉快，每一个细节都考虑得很周到！"</p>
                         </div>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👩‍🦰</div>
+                            <div class="author-info">
+                                <div class="author-name">小雨</div>
+                                <div class="author-trip">日本3日游</div>
+                            </div>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"界面太可爱了！就像在玩游戏一样，让旅行充满了乐趣。"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👨‍🦱</div>
+                            <div class="author-info">
+                                <div class="author-name">小明</div>
+                                <div class="author-trip">韩国2日游</div>
+                            </div>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"导航功能很强大，帮我节省了很多时间，强烈推荐！"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👩‍🦳</div>
+                            <div class="author-info">
+                                <div class="author-name">阿姨</div>
+                                <div class="author-trip">日本2日游</div>
+                            </div>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"界面太可爱了！就像在玩游戏一样，让旅行充满了乐趣。"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">👨‍🦱</div>
-                        <div class="author-info">
-                            <div class="author-name">小明</div>
-                            <div class="author-trip">韩国2日游</div>
-                        </div>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"导航功能很强大，帮我节省了很多时间，强烈推荐！"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">👩‍🦳</div>
-                        <div class="author-info">
-                            <div class="author-name">阿姨</div>
-                            <div class="author-trip">日本2日游</div>
-                        </div>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 行程选择区域 -->
-        <section class="trip-selector" id="tripSelector">
-            <h2>🌿 选择您的旅行路线</h2>
-            <div class="trip-options">
-                <div class="trip-option active" data-trip="shanghai-japan-3days">
-                    <div class="trip-route">
-                        <span class="city">上海</span>
-                        <i class="fas fa-plane"></i>
-                        <span class="city">日本</span>
-                    </div>
-                    <div class="trip-duration">3天2晚</div>
-                </div>
-                <div class="trip-option" data-trip="beijing-korea-2days">
-                    <div class="trip-route">
-                        <span class="city">北京</span>
-                        <i class="fas fa-plane"></i>
-                        <span class="city">韩国</span>
-                    </div>
-                    <div class="trip-duration">2天1晚</div>
-                </div>
-                <div class="trip-option" data-trip="shanghai-japan-2days">
-                    <div class="trip-route">
-                        <span class="city">上海</span>
-                        <i class="fas fa-plane"></i>
-                        <span class="city">日本</span>
-                    </div>
-                    <div class="trip-duration">2天1晚</div>
-                </div>
-                <div class="trip-option" data-trip="beijing-korea-3days">
-                    <div class="trip-route">
-                        <span class="city">北京</span>
-                        <i class="fas fa-plane"></i>
-                        <span class="city">韩国</span>
-                    </div>
-                    <div class="trip-duration">3天2晚</div>
-                </div>
-            </div>
-            <button class="btn-primary" id="startTripBtn">开始旅行</button>
-        </section>
-
-        <!-- 行程时间线 -->
-        <section class="timeline-section" id="timelineSection" style="display: none;">
-            <div class="timeline-header">
-                <h2>🌱 旅行进度</h2>
-                <div class="timeline-info">
-                    <div class="current-time" id="currentTime"></div>
-                    <div class="game-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progressFill"></div>
+            <!-- 行程选择区域 -->
+            <section class="trip-selector" id="tripSelector">
+                <h2>🌿 选择您的旅行路线</h2>
+                <div class="trip-options">
+                    <div class="trip-option active" data-trip="shanghai-japan-3days">
+                        <div class="trip-route">
+                            <span class="city">上海</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">日本</span>
                         </div>
-                        <div class="progress-info" id="progressInfo">
-                            <span id="completedCount">0</span> / <span id="totalCount">0</span> 计划完成
+                        <div class="trip-duration">3天2晚</div>
+                    </div>
+                    <div class="trip-option" data-trip="beijing-korea-2days">
+                        <div class="trip-route">
+                            <span class="city">北京</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">韩国</span>
                         </div>
+                        <div class="trip-duration">2天1晚</div>
+                    </div>
+                    <div class="trip-option" data-trip="shanghai-japan-2days">
+                        <div class="trip-route">
+                            <span class="city">上海</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">日本</span>
+                        </div>
+                        <div class="trip-duration">2天1晚</div>
+                    </div>
+                    <div class="trip-option" data-trip="beijing-korea-3days">
+                        <div class="trip-route">
+                            <span class="city">北京</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">韩国</span>
+                        </div>
+                        <div class="trip-duration">3天2晚</div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="timeline" id="timeline">
-                <!-- 时间线内容将通过JavaScript动态生成 -->
-            </div>
+                <button class="btn-primary" id="startTripBtn">开始旅行</button>
+            </section>
+        </div>
 
-            <!-- 当前位置显示 -->
-            <div class="current-location-card">
-                <h3><i class="fas fa-map-marker-alt"></i> 当前位置</h3>
-                <div class="location-details">
-                    <p id="locationAddress">正在获取位置...</p>
-                    <p id="locationCoordinates">坐标: 获取中...</p>
-                </div>
-                <button class="btn-secondary" id="refreshLocationBtn">
-                    <i class="fas fa-sync-alt"></i> 刷新位置
+        <!-- 蛙友圈页面 -->
+        <div class="page-content" id="frogCirclePage" style="display: none;">
+            <div class="page-header">
+                <h2>🐸 蛙友圈</h2>
+                <button class="btn-secondary" id="postMomentBtn">
+                    <i class="fas fa-plus"></i>
+                    发布动态
                 </button>
             </div>
-        </section>
+            <div class="moments-list" id="momentsList">
+                <!-- 动态列表将通过JavaScript动态生成 -->
+            </div>
+        </div>
+
+        <!-- 热门行程页面 -->
+        <div class="page-content" id="hotTripsPage" style="display: none;">
+            <div class="page-header">
+                <h2>🔥 热门行程</h2>
+            </div>
+            <div class="hot-trips-list" id="hotTripsList">
+                <!-- 热门行程列表将通过JavaScript动态生成 -->
+            </div>
+        </div>
+
+        <!-- 我的行程页面 -->
+        <div class="page-content" id="myTripsPage" style="display: none;">
+            <div class="page-header">
+                <h2>📋 我的行程</h2>
+            </div>
+            <div class="trips-tabs">
+                <button class="tab-btn active" data-tab="ongoing">进行中</button>
+                <button class="tab-btn" data-tab="completed">已完成</button>
+            </div>
+            <div class="trips-content">
+                <div class="tab-content active" id="ongoingTrips">
+                    <!-- 进行中的行程 -->
+                </div>
+                <div class="tab-content" id="completedTrips">
+                    <!-- 已完成的行程 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 我的页面 -->
+        <div class="page-content" id="profilePage" style="display: none;">
+            <div class="profile-header">
+                <div class="profile-avatar" id="profileAvatar">
+                    <img src="https://picsum.photos/100/100?random=1" alt="头像" id="avatarImg">
+                    <div class="avatar-edit">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h3 class="profile-name" id="profileName">小青蛙</h3>
+                    <p class="profile-bio" id="profileBio">热爱旅行的小青蛙 🐸</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">旅行次数</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">国家</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">156</span>
+                            <span class="stat-label">动态</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-menu">
+                <div class="menu-item" id="editProfileBtn">
+                    <i class="fas fa-user-edit"></i>
+                    <span>编辑资料</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>设置</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>帮助与反馈</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>关于我们</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- 弹窗蒙版 -->
-    <div class="plan-actions-overlay"></div>
+    <!-- 底部导航栏 -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" data-page="home">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </div>
+        <div class="nav-item" data-page="frogCircle">
+            <i class="fas fa-users"></i>
+            <span>蛙友圈</span>
+        </div>
+        <div class="nav-item" data-page="hotTrips">
+            <i class="fas fa-fire"></i>
+            <span>热门</span>
+        </div>
+        <div class="nav-item" data-page="myTrips">
+            <i class="fas fa-map"></i>
+            <span>行程</span>
+        </div>
+        <div class="nav-item" data-page="profile">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </nav>
 
-    <!-- 模态框 -->
-    <div class="modal" id="modal">
+    <!-- 编辑资料模态框 -->
+    <div class="modal" id="editProfileModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTitle">提醒</h3>
-                <button class="modal-close" id="modalClose">&times;</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- 模态框内容 -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn-primary" id="modalConfirm">确定</button>
-                <button class="btn-secondary" id="modalCancel">取消</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 地图模态框 -->
-    <div class="modal" id="mapModal">
-        <div class="modal-content map-modal-content">
-            <div class="modal-header">
-                <h3 id="mapModalTitle">路线导航</h3>
-                <button class="modal-close" id="mapModalClose">&times;</button>
+                <h3>编辑资料</h3>
+                <button class="modal-close" id="editProfileClose">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="map-container" id="mapContainer">
-                    <!-- 地图将在这里显示 -->
-                    <div class="map-placeholder">
-                        <i class="fas fa-map"></i>
-                        <p>地图加载中...</p>
+                <div class="edit-form">
+                    <div class="form-group">
+                        <label>昵称</label>
+                        <input type="text" id="editName" placeholder="请输入昵称">
                     </div>
-                </div>
-                <div class="route-info" id="routeInfo">
-                    <div class="route-details">
-                        <div class="route-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span id="routeOrigin">出发地</span>
-                        </div>
-                        <div class="route-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span id="routeDestination">目的地</span>
-                        </div>
+                    <div class="form-group">
+                        <label>个性签名</label>
+                        <textarea id="editBio" placeholder="介绍一下自己吧..." rows="3"></textarea>
                     </div>
-                    <div class="route-actions">
-                        <button class="btn-primary" id="openAmapBtn">
-                            <i class="fas fa-external-link-alt"></i>
-                            打开高德地图
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 评论区模态框 -->
-    <div class="modal" id="commentModal">
-        <div class="modal-content comment-modal-content">
-            <div class="modal-header">
-                <h3 id="commentModalTitle">计划评论</h3>
-                <button class="modal-close" id="commentModalClose">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="plan-info" id="commentPlanInfo">
-                    <!-- 计划信息将在这里显示 -->
-                </div>
-                <div class="comments-section">
-                    <div class="comments-header">
-                        <h4>评论区</h4>
-                        <div class="comments-stats">
-                            <span id="commentsCount">0</span> 条评论
-                            <span class="divider">|</span>
-                            <span id="averageRating">0.0</span> 分
-                        </div>
-                    </div>
-                    <div class="comments-list" id="commentsList">
-                        <!-- 评论列表将在这里显示 -->
-                    </div>
-                    <div class="comment-form">
-                        <div class="comment-form-header">
-                            <h5>分享您的体验</h5>
-                        </div>
-                        <textarea id="commentInput" placeholder="分享您的体验和感受..." rows="3"></textarea>
-                        <div class="image-upload-section">
-                            <label for="imageUpload" class="image-upload-label">
-                                <i class="fas fa-camera"></i>
-                                <span>添加图片</span>
-                            </label>
-                            <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
-                            <div class="image-preview" id="imagePreview"></div>
-                        </div>
-                        <div class="comment-form-actions">
-                            <div class="rating-section">
-                                <span>评分：</span>
-                                <div class="rating-stars" id="ratingStars">
-                                    <i class="fas fa-star" data-rating="1"></i>
-                                    <i class="fas fa-star" data-rating="2"></i>
-                                    <i class="fas fa-star" data-rating="3"></i>
-                                    <i class="fas fa-star" data-rating="4"></i>
-                                    <i class="fas fa-star" data-rating="5"></i>
-                                </div>
-                                <span class="rating-text" id="ratingText"></span>
-                            </div>
-                            <button class="btn-primary" id="submitCommentBtn">
-                                <i class="fas fa-paper-plane"></i>
-                                发表评论
+                    <div class="form-group">
+                        <label>更换头像</label>
+                        <div class="avatar-upload">
+                            <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                            <button class="btn-secondary" onclick="document.getElementById('avatarUpload').click()">
+                                <i class="fas fa-upload"></i>
+                                选择图片
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="saveProfileBtn">保存</button>
+                <button class="btn-secondary" id="cancelEditBtn">取消</button>
+            </div>
         </div>
     </div>
 
-    <!-- 权限请求弹窗 -->
-    <div class="permission-modal" id="permissionModal">
-        <div class="permission-content">
-            <div class="permission-icon">
-                <i class="fas fa-map-marker-alt"></i>
+    <!-- 发布动态模态框 -->
+    <div class="modal" id="postMomentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>发布动态</h3>
+                <button class="modal-close" id="postMomentClose">&times;</button>
             </div>
-            <h3>需要位置权限</h3>
-            <p>为了为您提供更好的旅游体验，我们需要获取您的位置信息。</p>
-            <div class="permission-buttons">
-                <button class="btn-primary" id="grantPermissionBtn">允许</button>
-                <button class="btn-secondary" id="denyPermissionBtn">拒绝</button>
+            <div class="modal-body">
+                <div class="post-form">
+                    <textarea id="momentContent" placeholder="分享你的旅行心情..." rows="4"></textarea>
+                    <div class="image-upload-section">
+                        <label for="momentImageUpload" class="image-upload-label">
+                            <i class="fas fa-camera"></i>
+                            <span>添加图片</span>
+                        </label>
+                        <input type="file" id="momentImageUpload" accept="image/*" multiple style="display: none;">
+                        <div class="image-preview" id="momentImagePreview"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="publishMomentBtn">发布</button>
+                <button class="btn-secondary" id="cancelPostBtn">取消</button>
             </div>
         </div>
     </div>
