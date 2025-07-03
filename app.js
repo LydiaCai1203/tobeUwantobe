@@ -53,16 +53,19 @@ class OwlApp {
             });
         });
 
-        // 行程选择
-        document.querySelectorAll('.trip-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                this.selectTrip(e.currentTarget.dataset.trip);
-            });
+        // 行程选择 - 使用事件委托，因为元素可能动态加载
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.trip-option')) {
+                const tripOption = e.target.closest('.trip-option');
+                this.selectTrip(tripOption.dataset.trip);
+            }
         });
 
         // 开始行程按钮
-        document.getElementById('startTripBtn').addEventListener('click', () => {
-            this.startTrip();
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'startTripBtn') {
+                this.startTrip();
+            }
         });
 
         // 发布动态按钮
@@ -472,11 +475,23 @@ class OwlApp {
 
     // 选择行程
     selectTrip(tripId) {
+        // 移除所有选项的active状态
         document.querySelectorAll('.trip-option').forEach(option => {
             option.classList.remove('active');
         });
-        document.querySelector(`[data-trip="${tripId}"]`).classList.add('active');
-        this.currentTrip = tripId;
+        
+        // 为选中的选项添加active状态
+        const selectedOption = document.querySelector(`[data-trip="${tripId}"]`);
+        if (selectedOption) {
+            selectedOption.classList.add('active');
+            this.currentTrip = tripId;
+            
+            // 添加选择动画效果
+            selectedOption.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                selectedOption.style.transform = '';
+            }, 200);
+        }
     }
 
     // 开始行程
@@ -2671,51 +2686,36 @@ class OwlApp {
 
     // 加载热门行程
     loadHotTrips() {
-        const hotTrips = [
-            {
-                route: '上海 → 日本',
-                duration: '3天2晚',
-                participants: 156,
-                rating: 4.8,
-                description: '樱花季限定行程，包含浅草寺、东京塔等经典景点'
-            },
-            {
-                route: '北京 → 韩国',
-                duration: '2天1晚',
-                participants: 89,
-                rating: 4.6,
-                description: '首尔精华游，明洞购物、景福宫文化体验'
-            },
-            {
-                route: '广州 → 泰国',
-                duration: '4天3晚',
-                participants: 234,
-                rating: 4.9,
-                description: '曼谷+芭提雅双城游，体验泰式风情'
-            }
-        ];
-
+        // 热门行程页面现在主要显示路线选择器
+        // 可以在这里添加其他热门内容，比如推荐行程、用户评价等
         const hotTripsList = document.getElementById('hotTripsList');
-        hotTripsList.innerHTML = '';
-
-        hotTrips.forEach(trip => {
-            const tripElement = document.createElement('div');
-            tripElement.className = 'hot-trip-item';
-            tripElement.innerHTML = `
-                <div class="hot-trip-header">
-                    <div class="hot-trip-route">
-                        <i class="fas fa-plane"></i>
-                        <span>${trip.route}</span>
+        hotTripsList.innerHTML = `
+            <div class="hot-trips-section">
+                <h3>🌟 推荐行程</h3>
+                <div class="recommended-trips">
+                    <div class="recommended-trip">
+                        <div class="trip-badge">🔥 最热门</div>
+                        <h4>樱花季日本深度游</h4>
+                        <p>春季限定，包含富士山、京都古寺等经典景点，体验日本传统文化与现代都市的完美融合。</p>
+                        <div class="trip-highlights">
+                            <span>🌸 樱花观赏</span>
+                            <span>🏯 古寺探访</span>
+                            <span>🍜 美食体验</span>
+                        </div>
                     </div>
-                    <div class="hot-trip-stats">
-                        <span>${trip.duration}</span>
-                        <span>${trip.participants}人参与</span>
+                    <div class="recommended-trip">
+                        <div class="trip-badge">⭐ 高评分</div>
+                        <h4>首尔时尚购物游</h4>
+                        <p>韩国时尚之都，明洞购物、弘大艺术区、江南时尚街，让你体验最in的韩流文化。</p>
+                        <div class="trip-highlights">
+                            <span>🛍️ 时尚购物</span>
+                            <span>🎨 艺术体验</span>
+                            <span>🍖 韩式美食</span>
+                        </div>
                     </div>
                 </div>
-                <div class="hot-trip-description">${trip.description}</div>
-            `;
-            hotTripsList.appendChild(tripElement);
-        });
+            </div>
+        `;
     }
 
     // 加载我的行程

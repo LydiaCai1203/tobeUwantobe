@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="welcome-actions">
-                            <button class="btn-explore" onclick="scrollToTripSelector()">
+                            <button class="btn-explore" onclick="window.owlApp.switchPage('hotTrips')">
                                 <i class="fas fa-compass"></i>
                                 开始探索
                             </button>
@@ -185,45 +185,7 @@
                 </div>
             </section>
 
-            <!-- 行程选择区域 -->
-            <section class="trip-selector" id="tripSelector">
-                <h2>🌿 选择您的旅行路线</h2>
-                <div class="trip-options">
-                    <div class="trip-option active" data-trip="shanghai-japan-3days">
-                        <div class="trip-route">
-                            <span class="city">上海</span>
-                            <i class="fas fa-plane"></i>
-                            <span class="city">日本</span>
-                        </div>
-                        <div class="trip-duration">3天2晚</div>
-                    </div>
-                    <div class="trip-option" data-trip="beijing-korea-2days">
-                        <div class="trip-route">
-                            <span class="city">北京</span>
-                            <i class="fas fa-plane"></i>
-                            <span class="city">韩国</span>
-                        </div>
-                        <div class="trip-duration">2天1晚</div>
-                    </div>
-                    <div class="trip-option" data-trip="shanghai-japan-2days">
-                        <div class="trip-route">
-                            <span class="city">上海</span>
-                            <i class="fas fa-plane"></i>
-                            <span class="city">日本</span>
-                        </div>
-                        <div class="trip-duration">2天1晚</div>
-                    </div>
-                    <div class="trip-option" data-trip="beijing-korea-3days">
-                        <div class="trip-route">
-                            <span class="city">北京</span>
-                            <i class="fas fa-plane"></i>
-                            <span class="city">韩国</span>
-                        </div>
-                        <div class="trip-duration">3天2晚</div>
-                    </div>
-                </div>
-                <button class="btn-primary" id="startTripBtn">开始旅行</button>
-            </section>
+
         </div>
 
         <!-- 蛙友圈页面 -->
@@ -245,6 +207,75 @@
             <div class="page-header">
                 <h2>🔥 热门行程</h2>
             </div>
+            
+            <!-- 行程选择区域 -->
+            <section class="trip-selector" id="tripSelector">
+                <h2>🌿 选择您的旅行路线</h2>
+                <div class="trip-options">
+                    <div class="trip-option active" data-trip="shanghai-japan-3days">
+                        <div class="trip-route">
+                            <span class="city">上海</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">日本</span>
+                        </div>
+                        <div class="trip-duration">3天2晚</div>
+                        <div class="trip-stats">
+                            <span class="participants">156人参与</span>
+                            <span class="rating">⭐ 4.8</span>
+                        </div>
+                    </div>
+                    <div class="trip-option" data-trip="beijing-korea-2days">
+                        <div class="trip-route">
+                            <span class="city">北京</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">韩国</span>
+                        </div>
+                        <div class="trip-duration">2天1晚</div>
+                        <div class="trip-stats">
+                            <span class="participants">89人参与</span>
+                            <span class="rating">⭐ 4.6</span>
+                        </div>
+                    </div>
+                    <div class="trip-option" data-trip="shanghai-japan-2days">
+                        <div class="trip-route">
+                            <span class="city">上海</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">日本</span>
+                        </div>
+                        <div class="trip-duration">2天1晚</div>
+                        <div class="trip-stats">
+                            <span class="participants">203人参与</span>
+                            <span class="rating">⭐ 4.7</span>
+                        </div>
+                    </div>
+                    <div class="trip-option" data-trip="beijing-korea-3days">
+                        <div class="trip-route">
+                            <span class="city">北京</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">韩国</span>
+                        </div>
+                        <div class="trip-duration">3天2晚</div>
+                        <div class="trip-stats">
+                            <span class="participants">127人参与</span>
+                            <span class="rating">⭐ 4.5</span>
+                        </div>
+                    </div>
+                    <div class="trip-option" data-trip="guangzhou-thailand-4days">
+                        <div class="trip-route">
+                            <span class="city">广州</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">泰国</span>
+                        </div>
+                        <div class="trip-duration">4天3晚</div>
+                        <div class="trip-stats">
+                            <span class="participants">234人参与</span>
+                            <span class="rating">⭐ 4.9</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-primary" id="startTripBtn">开始旅行</button>
+            </section>
+            
             <div class="hot-trips-list" id="hotTripsList">
                 <!-- 热门行程列表将通过JavaScript动态生成 -->
             </div>

@@ -243,6 +243,26 @@ body::after {
     text-align: center;
     font-size: 0.9rem;
     opacity: 0.8;
+    margin-top: 0.5rem;
+}
+
+.trip-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.trip-stats .participants {
+    color: #4caf50;
+    font-weight: 500;
+}
+
+.trip-stats .rating {
+    color: #ff9800;
+    font-weight: 500;
 }
 
 /* 按钮样式 */
@@ -2292,6 +2312,103 @@ body::after {
     gap: 1rem;
 }
 
+.hot-trips-section {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(76, 175, 80, 0.2);
+    margin-top: 2rem;
+}
+
+.hot-trips-section h3 {
+    color: #2d5016;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.recommended-trips {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.recommended-trip {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid rgba(76, 175, 80, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.recommended-trip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.recommended-trip:hover::before {
+    left: 100%;
+}
+
+.recommended-trip:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
+    border-color: #4caf50;
+}
+
+.trip-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.recommended-trip h4 {
+    color: #2d5016;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    margin-right: 80px;
+}
+
+.recommended-trip p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.trip-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.trip-highlights span {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
 .hot-trip-item {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
@@ -2679,5 +2796,35 @@ body::after {
     
     .menu-item {
         padding: 0.8rem 1rem;
+    }
+    
+    /* 热门行程页面移动端样式 */
+    .recommended-trips {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .recommended-trip {
+        padding: 1rem;
+    }
+    
+    .recommended-trip h4 {
+        margin-right: 60px;
+        font-size: 1.1rem;
+    }
+    
+    .trip-highlights {
+        gap: 0.3rem;
+    }
+    
+    .trip-highlights span {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+    }
+    
+    .trip-stats {
+        flex-direction: column;
+        gap: 0.3rem;
+        align-items: flex-start;
     }
 } 
