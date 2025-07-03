@@ -548,10 +548,10 @@ class OwlApp {
     // 获取类型文本
     getTypeText(type) {
         const typeMap = {
-            'transport': '交通',
-            'activity': '游玩',
-            'food': '餐食',
-            'accommodation': '住宿'
+            'transport': '🚗 出行',
+            'activity': '🎯 探险',
+            'food': '🍽️ 觅食',
+            'accommodation': '🏠 休息'
         };
         return typeMap[type] || type;
     }
@@ -1154,15 +1154,15 @@ class OwlApp {
         // 这里应该调用真实的地理编码API
         // 现在使用Mock数据
         const mockAddresses = [
-            '上海市浦东新区浦东国际机场',
-            '东京都成田市成田国际机场',
-            '东京都新宿区希尔顿酒店',
-            '东京都台东区浅草寺',
-            '东京都中央区银座',
-            '北京市顺义区首都国际机场',
-            '首尔特别市仁川国际机场',
-            '首尔特别市中区威斯汀酒店',
-            '首尔特别市中区明洞'
+            '🌸 樱花盛开的上海浦东机场',
+            '🗾 富士山脚下的成田机场',
+            '🏮 灯火通明的新宿酒店',
+            '⛩️ 古朴典雅的浅草寺',
+            '🌃 繁华热闹的银座街头',
+            '🏯 古都风韵的北京首都机场',
+            '🎋 韩风浓郁的仁川机场',
+            '🏨 现代时尚的首尔酒店',
+            '🛍️ 购物天堂明洞街区'
         ];
         
         const randomAddress = mockAddresses[Math.floor(Math.random() * mockAddresses.length)];
@@ -1978,6 +1978,7 @@ class OwlApp {
         // 隐藏取消按钮
         document.getElementById('modalCancel').style.display = 'none';
     }
+=======
 
     // 显示带选项的模态框
     showModalWithOptions(title, message, confirmText, cancelText, onConfirm, onCancel) {
