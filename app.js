@@ -1556,23 +1556,68 @@ class OwlApp {
         const completeBtnClass = isCompleted ? 'plan-action-btn complete completed' : 'plan-action-btn complete';
         
         planActions.innerHTML = `
-            <button class="plan-action-btn navigation" onclick="window.owlApp.showNavigationFromSidebar()">
+            <button class="plan-action-btn navigation" title="查看路线">
                 <i class="fas fa-route"></i>
-                查看路线
             </button>
-            <button class="plan-action-btn taxi" onclick="window.owlApp.openTaxiFromSidebar()">
+            <button class="plan-action-btn taxi" title="打车">
                 <i class="fas fa-taxi"></i>
-                打车
             </button>
-            <button class="plan-action-btn comment" onclick="window.owlApp.showCommentsFromSidebar()">
+            <button class="plan-action-btn comment" title="评论">
                 <i class="fas fa-comments"></i>
-                评论
             </button>
-            <button class="${completeBtnClass}" onclick="window.owlApp.togglePlanCompleteFromSidebar()">
+            <button class="${completeBtnClass}" title="${completeBtnText}">
                 <i class="fas fa-check"></i>
-                ${completeBtnText}
             </button>
         `;
+        
+        // 绑定按钮事件
+        const navigationBtn = planActions.querySelector('.navigation');
+        const taxiBtn = planActions.querySelector('.taxi');
+        const commentBtn = planActions.querySelector('.comment');
+        const completeBtn = planActions.querySelector('.complete');
+        
+        console.log('Buttons found:', {
+            navigationBtn: navigationBtn,
+            taxiBtn: taxiBtn,
+            commentBtn: commentBtn,
+            completeBtn: completeBtn
+        });
+        
+        if (navigationBtn) {
+            navigationBtn.addEventListener('click', () => {
+                console.log('Navigation button clicked');
+                this.showNavigationFromSidebar();
+            });
+        } else {
+            console.error('Navigation button not found');
+        }
+        
+        if (taxiBtn) {
+            taxiBtn.addEventListener('click', () => {
+                console.log('Taxi button clicked');
+                this.openTaxiFromSidebar();
+            });
+        } else {
+            console.error('Taxi button not found');
+        }
+        
+        if (commentBtn) {
+            commentBtn.addEventListener('click', () => {
+                console.log('Comment button clicked');
+                this.showCommentsFromSidebar();
+            });
+        } else {
+            console.error('Comment button not found');
+        }
+        
+        if (completeBtn) {
+            completeBtn.addEventListener('click', () => {
+                console.log('Complete button clicked');
+                this.togglePlanCompleteFromSidebar();
+            });
+        } else {
+            console.error('Complete button not found');
+        }
         
         // 将按钮添加到计划项目中
         timelineItem.appendChild(planActions);
@@ -1582,6 +1627,7 @@ class OwlApp {
         
         // 保存当前选中的计划索引
         this.currentActionPlanIndex = index;
+        console.log('currentActionPlanIndex set to:', index);
         
         // 显示蒙版
         const overlay = document.querySelector('.plan-actions-overlay');
@@ -1590,31 +1636,19 @@ class OwlApp {
         }
         
         // 延迟显示按钮，确保DOM已更新
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             planActions.classList.add('show');
-        }, 10);
+        });
     }
     
     // 调整计划操作按钮的位置
     adjustPlanActionsPosition(planActions, timelineItem) {
-        // 获取元素位置信息
-        const timelineRect = timelineItem.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        
-        // 计算弹窗的预估高度（4个按钮 + 间距 + 内边距）
-        const estimatedHeight = 4 * 40 + 3 * 8 + 32; // 按钮高度 + 间距 + 内边距
-        
-        // 检查是否会超出视口底部
-        const wouldOverflowBottom = timelineRect.top + estimatedHeight > viewportHeight - 20; // 留20px边距
-        
-        // 如果会超出底部，则对齐到底部
-        if (wouldOverflowBottom) {
-            planActions.classList.add('bottom-aligned');
-        }
+        // 由于弹窗现在嵌入在计划项内部，不需要复杂的位置计算
+        // 只需要确保弹窗在计划项的右侧内部显示
         
         // 监听窗口大小变化，重新调整位置
         const resizeHandler = () => {
-            this.adjustPlanActionsPosition(planActions, timelineItem);
+            // 可以在这里添加响应式调整逻辑
         };
         
         // 添加一次性事件监听器
@@ -1631,15 +1665,25 @@ class OwlApp {
         const allPlanActions = document.querySelectorAll('.plan-actions');
         const overlay = document.querySelector('.plan-actions-overlay');
         
-        // 移除所有按钮
+        // 为每个按钮添加淡出动画
         allPlanActions.forEach(actions => {
-            actions.remove();
+            actions.classList.remove('show');
+            // 等待动画完成后移除元素
+            setTimeout(() => {
+                if (actions.parentNode) {
+                    actions.remove();
+                }
+            }, 250);
         });
         
         // 隐藏蒙版
         if (overlay) {
             overlay.classList.remove('show');
         }
+        
+        // 清除当前选中的计划索引
+        this.currentActionPlanIndex = undefined;
+        console.log('currentActionPlanIndex cleared');
     }
 
     // 返回首页
@@ -1996,29 +2040,47 @@ class OwlApp {
 
     // 从侧边栏显示导航
     showNavigationFromSidebar() {
+        console.log('showNavigationFromSidebar called, currentActionPlanIndex:', this.currentActionPlanIndex);
         if (this.currentActionPlanIndex !== undefined) {
             this.showNavigation(this.currentActionPlanIndex);
+        } else {
+            console.error('currentActionPlanIndex is undefined');
+            this.showModal('提示', '无法获取当前计划信息');
         }
     }
     
     // 显示导航
     showNavigation(index) {
+        console.log('showNavigation called with index:', index);
         const tripData = this.getTripData();
         const plan = tripData[index];
         
-        if (!plan) return;
+        if (!plan) {
+            console.error('Plan not found for index:', index);
+            return;
+        }
+        
+        console.log('Plan found:', plan);
         
         const origin = this.currentLocation ? 
             `${this.currentLocation.lat},${this.currentLocation.lng}` : '当前位置';
         const destination = plan.coordinates ? 
             `${plan.coordinates.lat},${plan.coordinates.lng}` : plan.location;
         
+        console.log('Origin:', origin, 'Destination:', destination);
+        
         // 更新地图模态框内容
         document.getElementById('routeOrigin').textContent = origin;
         document.getElementById('routeDestination').textContent = plan.location;
         
+        // 更新模态框标题
+        document.getElementById('mapModalTitle').textContent = `路线导航 - ${plan.title}`;
+        
         // 显示地图模态框
         this.showMapModal();
+        
+        // 加载地图
+        this.loadMap(origin, destination, plan.location);
     }
 
     // 从侧边栏打开打车
@@ -2035,19 +2097,60 @@ class OwlApp {
         
         if (!plan) return;
         
-        this.showModal(
-            '打车服务',
-            `即将打开滴滴打车\n出发地：当前位置\n目的地：${plan.location}\n请手动输入具体地址`,
-            () => {
-                // 模拟打开滴滴打车
-                alert('模拟打开滴滴打车应用');
-            }
-        );
+        // 创建打车模态框内容
+        const taxiContent = `
+            <div class="taxi-info">
+                <div class="taxi-route">
+                    <div class="route-point">
+                        <i class="fas fa-map-marker-alt start"></i>
+                        <span>当前位置</span>
+                    </div>
+                    <div class="route-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="route-point">
+                        <i class="fas fa-map-marker-alt end"></i>
+                        <span>${plan.location}</span>
+                    </div>
+                </div>
+                <div class="taxi-estimate">
+                    <div class="estimate-item">
+                        <i class="fas fa-clock"></i>
+                        <span>预计时间：15-25分钟</span>
+                    </div>
+                    <div class="estimate-item">
+                        <i class="fas fa-yen-sign"></i>
+                        <span>预计费用：¥25-35</span>
+                    </div>
+                </div>
+                <div class="taxi-actions">
+                    <button class="btn-primary" onclick="window.owlApp.openDidiTaxi()">
+                        <i class="fas fa-taxi"></i>
+                        打开滴滴打车
+                    </button>
+                    <button class="btn-secondary" onclick="window.owlApp.openGaoDeTaxi()">
+                        <i class="fas fa-car"></i>
+                        打开高德打车
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // 显示自定义模态框
+        this.showCustomModal('打车服务', taxiContent);
     }
 
     // 显示地图模态框
     showMapModal() {
-        document.getElementById('mapModal').style.display = 'block';
+        console.log('showMapModal called');
+        const mapModal = document.getElementById('mapModal');
+        console.log('mapModal element:', mapModal);
+        if (mapModal) {
+            mapModal.style.display = 'block';
+            console.log('Map modal display set to block');
+        } else {
+            console.error('mapModal element not found');
+        }
     }
 
     // 隐藏地图模态框
@@ -2055,6 +2158,41 @@ class OwlApp {
         document.getElementById('mapModal').style.display = 'none';
     }
 
+    // 加载地图
+    loadMap(origin, destination, destinationName) {
+        console.log('loadMap called with:', { origin, destination, destinationName });
+        const mapContainer = document.getElementById('mapContainer');
+        console.log('mapContainer element:', mapContainer);
+        
+        if (!mapContainer) {
+            console.error('mapContainer element not found');
+            return;
+        }
+        
+        // 清空容器
+        mapContainer.innerHTML = '';
+        
+        // 创建地图iframe
+        const mapFrame = document.createElement('iframe');
+        mapFrame.style.width = '100%';
+        mapFrame.style.height = '300px';
+        mapFrame.style.border = 'none';
+        mapFrame.style.borderRadius = '10px';
+        
+        // 构建高德地图嵌入URL
+        let mapUrl = 'https://uri.amap.com/marker?';
+        if (origin && origin !== '当前位置') {
+            mapUrl += `position=${origin}&`;
+        }
+        mapUrl += `position=${destination}&name=${encodeURIComponent(destinationName)}&src=mypage&coordinate=gaode&callnative=0`;
+        
+        console.log('Map URL:', mapUrl);
+        
+        mapFrame.src = mapUrl;
+        mapContainer.appendChild(mapFrame);
+        console.log('Map iframe added to container');
+    }
+    
     // 打开高德地图导航
     openAmapNavigation() {
         const origin = this.currentLocation ? 
@@ -2095,6 +2233,36 @@ class OwlApp {
         );
     }
 
+    // 打开滴滴打车
+    openDidiTaxi() {
+        const destination = document.getElementById('routeDestination').textContent;
+        // 模拟打开滴滴打车
+        this.showModal(
+            '滴滴打车',
+            `正在打开滴滴打车应用...\n目的地：${destination}`,
+            () => {
+                // 这里应该打开滴滴打车应用或网页
+                alert('模拟打开滴滴打车应用');
+            }
+        );
+        this.hideModal();
+    }
+    
+    // 打开高德打车
+    openGaoDeTaxi() {
+        const destination = document.getElementById('routeDestination').textContent;
+        // 模拟打开高德打车
+        this.showModal(
+            '高德打车',
+            `正在打开高德打车应用...\n目的地：${destination}`,
+            () => {
+                // 这里应该打开高德打车应用或网页
+                alert('模拟打开高德打车应用');
+            }
+        );
+        this.hideModal();
+    }
+    
     // 打开打车
     openTaxi() {
         const tripData = this.getTripData();
@@ -2131,6 +2299,17 @@ class OwlApp {
         };
         
         // 隐藏取消按钮
+        document.getElementById('modalCancel').style.display = 'none';
+    }
+    
+    // 显示自定义模态框
+    showCustomModal(title, content) {
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalBody').innerHTML = content;
+        document.getElementById('modal').style.display = 'block';
+        
+        // 隐藏默认按钮
+        document.getElementById('modalConfirm').style.display = 'none';
         document.getElementById('modalCancel').style.display = 'none';
     }
 

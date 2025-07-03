@@ -287,7 +287,7 @@ body::after {
     backdrop-filter: blur(10px);
     border: 2px solid rgba(76, 175, 80, 0.2);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .timeline-section::before {
@@ -604,53 +604,45 @@ body::after {
 /* 计划操作按钮 */
 .plan-actions {
     position: absolute;
-    top: 0;
-    left: 100%;
-    width: 200px;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%) translateX(40px);
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(15px);
     border: 1px solid rgba(76, 175, 80, 0.2);
-    border-radius: 8px;
+    border-radius: 20px;
     padding: 0.8rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    z-index: 9999;
+    z-index: 10000;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(20px);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    margin-left: 0;
+    will-change: transform, opacity;
 }
 
-.plan-actions.bottom-aligned {
-    top: auto;
-    bottom: 0;
-}
 
-.plan-actions.bottom-aligned::before {
-    top: auto;
-    bottom: 20px;
-}
 
 .plan-actions.show {
     opacity: 1;
     visibility: visible;
-    transform: translateX(0);
+    transform: translateY(-50%) translateX(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .plan-actions::before {
     content: '';
     position: absolute;
-    top: 20px;
-    left: -4px;
+    top: 50%;
+    right: -4px;
     width: 8px;
     height: 8px;
     background: rgba(255, 255, 255, 0.95);
-    border-left: 1px solid rgba(76, 175, 80, 0.2);
+    border-right: 1px solid rgba(76, 175, 80, 0.2);
     border-bottom: 1px solid rgba(76, 175, 80, 0.2);
-    transform: rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);
     z-index: -1;
 }
 
@@ -676,20 +668,20 @@ body::after {
 .plan-action-btn {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 0.8rem;
-    padding: 0.7rem 1rem;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
     border: none;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500;
+    border-radius: 50%;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     color: #2d5016;
-    border: 1px solid rgba(76, 175, 80, 0.08);
+    border: 1px solid rgba(76, 175, 80, 0.1);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .plan-action-btn::before {
@@ -708,14 +700,14 @@ body::after {
 }
 
 .plan-action-btn:hover {
-    transform: translateX(3px);
+    transform: scale(1.1);
     background: rgba(255, 255, 255, 0.95);
     border-color: rgba(76, 175, 80, 0.2);
-    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
 
 .plan-action-btn.navigation {
-    border-left: 4px solid #17a2b8;
+    color: #17a2b8;
 }
 
 .plan-action-btn.navigation:hover {
@@ -724,7 +716,7 @@ body::after {
 }
 
 .plan-action-btn.taxi {
-    border-left: 4px solid #fd7e14;
+    color: #fd7e14;
 }
 
 .plan-action-btn.taxi:hover {
@@ -733,7 +725,7 @@ body::after {
 }
 
 .plan-action-btn.complete {
-    border-left: 4px solid #28a745;
+    color: #28a745;
 }
 
 .plan-action-btn.complete:hover {
@@ -742,7 +734,7 @@ body::after {
 }
 
 .plan-action-btn.complete.completed {
-    border-left: 4px solid #6c757d;
+    color: #6c757d;
     background: rgba(108, 117, 125, 0.1);
 }
 
@@ -752,7 +744,7 @@ body::after {
 }
 
 .plan-action-btn.comment {
-    border-left: 4px solid #6f42c1;
+    color: #6f42c1;
 }
 
 .plan-action-btn.comment:hover {
@@ -878,6 +870,7 @@ body::after {
     align-items: center;
     justify-content: center;
     border: 2px dashed #dee2e6;
+    overflow: hidden;
 }
 
 .map-placeholder {
@@ -1420,16 +1413,16 @@ body::after {
     
     /* 移动端按钮样式 */
     .plan-actions {
-        width: 150px;
-        left: calc(100% - 150px);
-        margin-left: 0;
+        right: 0.5rem;
         padding: 0.6rem;
+        transform: translateY(-50%) translateX(40px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .plan-action-btn {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.8rem;
-        gap: 0.6rem;
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
     }
     
     .plan-actions::before {
@@ -1438,9 +1431,7 @@ body::after {
         height: 6px;
     }
     
-    .plan-actions.bottom-aligned::before {
-        bottom: 15px;
-    }
+
 }
 
 /* 动画效果 */
@@ -1536,4 +1527,80 @@ body::after {
     font-size: 1.2rem;
     color: #2d5016;
     opacity: 0.9;
+}
+
+/* 打车信息样式 */
+.taxi-info {
+    padding: 1rem 0;
+}
+
+.taxi-route {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(76, 175, 80, 0.05);
+    border-radius: 10px;
+}
+
+.route-point {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #2d5016;
+}
+
+.route-point i.start {
+    color: #4caf50;
+}
+
+.route-point i.end {
+    color: #fd7e14;
+}
+
+.route-arrow {
+    color: #4caf50;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.taxi-estimate {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.estimate-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    color: #2d5016;
+}
+
+.estimate-item i {
+    color: #4caf50;
+    width: 16px;
+}
+
+.taxi-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.taxi-actions .btn-primary,
+.taxi-actions .btn-secondary {
+    flex: 1;
+    max-width: 150px;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
 } 
