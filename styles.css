@@ -2216,30 +2216,44 @@ body::after {
 .moments-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
+    padding: 0 0.5rem;
 }
 
 .moment-item {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    padding: 1rem;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(76, 175, 80, 0.1);
+    transition: all 0.3s ease;
+}
+
+.moment-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(76, 175, 80, 0.15);
 }
 
 .moment-header {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.moment-user-section {
+    display: flex;
     align-items: center;
     gap: 0.8rem;
-    margin-bottom: 0.8rem;
 }
 
 .moment-avatar {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid rgba(76, 175, 80, 0.2);
 }
 
 .moment-user-info {
@@ -2247,35 +2261,194 @@ body::after {
 }
 
 .moment-username {
-    font-weight: 600;
+    font-weight: 700;
     color: #2d5016;
-    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.user-level {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.moment-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
 }
 
 .moment-time {
     font-size: 0.8rem;
     color: #689f38;
-    margin-top: 0.2rem;
+}
+
+.moment-location {
+    font-size: 0.8rem;
+    color: #4caf50;
+    font-weight: 500;
+}
+
+.moment-actions-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.follow-btn {
+    background: linear-gradient(135deg, #4caf50, #8bc34a);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.follow-btn.followed {
+    background: #e0e0e0;
+    color: #666;
+}
+
+.follow-btn:hover {
+    transform: scale(1.05);
+}
+
+.more-btn {
+    background: none;
+    border: none;
+    color: #689f38;
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.more-btn:hover {
+    background: rgba(76, 175, 80, 0.1);
 }
 
 .moment-content {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     line-height: 1.6;
     color: #4a6741;
+    font-size: 0.95rem;
+}
+
+.moment-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.moment-tag {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.moment-tag:hover {
+    background: rgba(76, 175, 80, 0.2);
+    transform: scale(1.05);
 }
 
 .moment-images {
+    margin-bottom: 1rem;
+}
+
+.moment-images.single {
+    display: block;
+}
+
+.moment-images.single .moment-image {
+    width: 100%;
+    max-height: 300px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.moment-images.double {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
-    margin-bottom: 0.8rem;
+}
+
+.moment-images.double .moment-image {
+    width: 100%;
+    height: 150px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.moment-images.triple {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.moment-images.triple .moment-image:first-child {
+    grid-column: 1 / -1;
+    height: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.moment-images.triple .moment-image:not(:first-child) {
+    height: 120px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.moment-images.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.moment-images.grid .image-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.moment-images.grid .moment-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 .moment-image {
-    width: 100%;
-    height: 80px;
-    border-radius: 8px;
-    object-fit: cover;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -2284,25 +2457,101 @@ body::after {
     transform: scale(1.05);
 }
 
-.moment-actions {
+.moment-stats {
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
     border-top: 1px solid rgba(76, 175, 80, 0.1);
-    padding-top: 0.8rem;
+    border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+    margin-bottom: 1rem;
 }
 
-.moment-action {
+.moment-stat {
     display: flex;
     align-items: center;
     gap: 0.3rem;
     color: #689f38;
     font-size: 0.8rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
+    font-weight: 500;
 }
 
-.moment-action:hover {
+.moment-stat i {
     color: #4caf50;
+}
+
+.comments-preview {
+    margin-bottom: 1rem;
+}
+
+.comment-preview-item {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.comment-username {
+    color: #4caf50;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.comment-content {
+    color: #4a6741;
+    flex: 1;
+}
+
+.more-comments {
+    color: #689f38;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+.more-comments:hover {
+    color: #4caf50;
+}
+
+.moment-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.8rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: none;
+    border: none;
+    color: #689f38;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.action-btn:hover {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+}
+
+.action-btn.liked {
+    color: #ff6b6b;
+}
+
+.action-btn.liked i {
+    color: #ff6b6b;
+}
+
+.action-btn i {
+    font-size: 1rem;
 }
 
 /* 热门行程样式 */
@@ -2826,5 +3075,249 @@ body::after {
         flex-direction: column;
         gap: 0.3rem;
         align-items: flex-start;
+    }
+    
+    /* 蛙友圈移动端样式 */
+    .moment-item {
+        padding: 1rem;
+        margin: 0 0.5rem;
+    }
+    
+    .moment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+    
+    .moment-actions-header {
+        align-self: flex-end;
+    }
+    
+    .moment-images.double,
+    .moment-images.triple,
+    .moment-images.grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.3rem;
+    }
+    
+    .moment-images.double .moment-image,
+    .moment-images.triple .moment-image:not(:first-child),
+    .moment-images.grid .moment-image {
+        height: 100px;
+    }
+    
+    .moment-images.triple .moment-image:first-child {
+        height: 150px;
+    }
+    
+    .moment-actions {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .action-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+    }
+    
+    .moment-tags {
+        gap: 0.3rem;
+    }
+    
+    .moment-tag {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+    }
+}
+
+/* 用户主页模态框样式 */
+.user-profile-modal {
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.user-profile-content {
+    padding: 0;
+}
+
+.user-profile-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 3px solid #f0f0f0;
+}
+
+.modal-user-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.modal-user-level {
+    margin: 0 0 8px 0;
+    font-size: 12px;
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.modal-user-bio {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.user-profile-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-stat {
+    text-align: center;
+}
+
+.profile-stat .stat-number {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.profile-stat .stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+.user-profile-actions {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.user-profile-actions .btn-primary {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.user-profile-actions .btn-secondary {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.user-recent-moments {
+    padding: 20px;
+}
+
+.user-recent-moments h5 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.modal-moments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.modal-moment-item {
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 3px solid #667eea;
+}
+
+.modal-moment-content {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.modal-moment-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+}
+
+.modal-moment-time {
+    color: #999;
+}
+
+.modal-moment-likes {
+    color: #ff6b6b;
+}
+
+/* 用户主页移动端样式 */
+@media (max-width: 768px) {
+    .user-profile-modal {
+        max-width: 95vw;
+        max-height: 90vh;
+    }
+
+    .user-profile-header {
+        padding: 15px;
+    }
+
+    .modal-user-avatar {
+        width: 60px;
+        height: 60px;
+        margin-right: 12px;
+    }
+
+    .modal-user-info h4 {
+        font-size: 16px;
+    }
+
+    .modal-user-bio {
+        font-size: 13px;
+    }
+
+    .user-profile-stats {
+        padding: 15px;
+    }
+
+    .profile-stat .stat-number {
+        font-size: 18px;
+    }
+
+    .user-profile-actions {
+        padding: 15px;
+        flex-direction: column;
+    }
+
+    .user-recent-moments {
+        padding: 15px;
+    }
+
+    .modal-moment-item {
+        padding: 10px;
+    }
+
+    .modal-moment-content {
+        font-size: 13px;
     }
 } 

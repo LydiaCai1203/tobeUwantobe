@@ -69,119 +69,233 @@ class OwlApp {
         });
 
         // 发布动态按钮
-        document.getElementById('postMomentBtn').addEventListener('click', () => {
-            this.showPostMomentModal();
-        });
+        const postMomentBtn = document.getElementById('postMomentBtn');
+        if (postMomentBtn) {
+            postMomentBtn.addEventListener('click', () => {
+                this.showPostMomentModal();
+            });
+        }
 
         // 编辑资料按钮
-        document.getElementById('editProfileBtn').addEventListener('click', () => {
-            this.showEditProfileModal();
-        });
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        if (editProfileBtn) {
+            editProfileBtn.addEventListener('click', () => {
+                this.showEditProfileModal();
+            });
+        }
 
         // 行程标签切换
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                this.switchTab(e.currentTarget.dataset.tab);
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        if (tabBtns.length > 0) {
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    this.switchTab(e.currentTarget.dataset.tab);
+                });
             });
-        });
+        }
 
         // 模态框事件
-        document.getElementById('editProfileClose').addEventListener('click', () => {
-            this.hideEditProfileModal();
-        });
+        const editProfileClose = document.getElementById('editProfileClose');
+        if (editProfileClose) {
+            editProfileClose.addEventListener('click', () => {
+                this.hideEditProfileModal();
+            });
+        }
 
-        document.getElementById('saveProfileBtn').addEventListener('click', () => {
-            this.saveProfile();
-        });
+        const saveProfileBtn = document.getElementById('saveProfileBtn');
+        if (saveProfileBtn) {
+            saveProfileBtn.addEventListener('click', () => {
+                this.saveProfile();
+            });
+        }
 
-        document.getElementById('cancelEditBtn').addEventListener('click', () => {
-            this.hideEditProfileModal();
-        });
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        if (cancelEditBtn) {
+            cancelEditBtn.addEventListener('click', () => {
+                this.hideEditProfileModal();
+            });
+        }
 
-        document.getElementById('postMomentClose').addEventListener('click', () => {
-            this.hidePostMomentModal();
-        });
+        const postMomentClose = document.getElementById('postMomentClose');
+        if (postMomentClose) {
+            postMomentClose.addEventListener('click', () => {
+                this.hidePostMomentModal();
+            });
+        }
 
-        document.getElementById('publishMomentBtn').addEventListener('click', () => {
-            this.publishMoment();
-        });
+        const publishMomentBtn = document.getElementById('publishMomentBtn');
+        if (publishMomentBtn) {
+            publishMomentBtn.addEventListener('click', () => {
+                this.publishMoment();
+            });
+        }
 
-        document.getElementById('cancelPostBtn').addEventListener('click', () => {
-            this.hidePostMomentModal();
-        });
+        const cancelPostBtn = document.getElementById('cancelPostBtn');
+        if (cancelPostBtn) {
+            cancelPostBtn.addEventListener('click', () => {
+                this.hidePostMomentModal();
+            });
+        }
 
         // 头像上传
-        document.getElementById('avatarUpload').addEventListener('change', (e) => {
-            this.handleAvatarUpload(e.target.files);
-        });
+        const avatarUpload = document.getElementById('avatarUpload');
+        if (avatarUpload) {
+            avatarUpload.addEventListener('change', (e) => {
+                this.handleAvatarUpload(e.target.files);
+            });
+        }
 
         // 动态图片上传
-        document.getElementById('momentImageUpload').addEventListener('change', (e) => {
-            this.handleMomentImageUpload(e.target.files);
-        });
+        const momentImageUpload = document.getElementById('momentImageUpload');
+        if (momentImageUpload) {
+            momentImageUpload.addEventListener('change', (e) => {
+                this.handleMomentImageUpload(e.target.files);
+            });
+        }
 
         // 刷新位置按钮
-        document.getElementById('refreshLocationBtn').addEventListener('click', () => {
-            this.refreshMockLocation();
-        });
+        const refreshLocationBtn = document.getElementById('refreshLocationBtn');
+        if (refreshLocationBtn) {
+            refreshLocationBtn.addEventListener('click', () => {
+                this.refreshMockLocation();
+            });
+        }
 
 
 
         // 权限请求按钮
-        document.getElementById('grantPermissionBtn').addEventListener('click', () => {
-            this.requestLocationPermission();
-        });
+        const grantPermissionBtn = document.getElementById('grantPermissionBtn');
+        if (grantPermissionBtn) {
+            grantPermissionBtn.addEventListener('click', () => {
+                this.requestLocationPermission();
+            });
+        }
 
-        document.getElementById('denyPermissionBtn').addEventListener('click', () => {
-            this.hidePermissionModal();
-        });
+        const denyPermissionBtn = document.getElementById('denyPermissionBtn');
+        if (denyPermissionBtn) {
+            denyPermissionBtn.addEventListener('click', () => {
+                this.hidePermissionModal();
+            });
+        }
 
         // 模态框事件
-        document.getElementById('modalClose').addEventListener('click', () => {
-            this.hideModal();
-        });
+        const modalClose = document.getElementById('modalClose');
+        if (modalClose) {
+            modalClose.addEventListener('click', () => {
+                this.hideModal();
+            });
+        }
 
-        document.getElementById('modalConfirm').addEventListener('click', () => {
-            this.hideModal();
-        });
+        const modalConfirm = document.getElementById('modalConfirm');
+        if (modalConfirm) {
+            modalConfirm.addEventListener('click', () => {
+                this.hideModal();
+            });
+        }
 
-        document.getElementById('modalCancel').addEventListener('click', () => {
-            this.hideModal();
-        });
+        const modalCancel = document.getElementById('modalCancel');
+        if (modalCancel) {
+            modalCancel.addEventListener('click', () => {
+                this.hideModal();
+            });
+        }
 
         // 地图模态框事件
-        document.getElementById('mapModalClose').addEventListener('click', () => {
-            this.hideMapModal();
-        });
+        const mapModalClose = document.getElementById('mapModalClose');
+        if (mapModalClose) {
+            mapModalClose.addEventListener('click', () => {
+                this.hideMapModal();
+            });
+        }
 
-        document.getElementById('openAmapBtn').addEventListener('click', () => {
-            this.openAmapNavigation();
-        });
+        const openAmapBtn = document.getElementById('openAmapBtn');
+        if (openAmapBtn) {
+            openAmapBtn.addEventListener('click', () => {
+                this.openAmapNavigation();
+            });
+        }
 
         // 返回首页按钮
-        document.getElementById('backToHomeBtn').addEventListener('click', () => {
-            this.backToHome();
-        });
+        const backToHomeBtn = document.getElementById('backToHomeBtn');
+        if (backToHomeBtn) {
+            backToHomeBtn.addEventListener('click', () => {
+                this.backToHome();
+            });
+        }
 
         // 评论区事件
-        document.getElementById('commentModalClose').addEventListener('click', () => {
-            this.hideCommentModal();
-        });
+        const commentModalClose = document.getElementById('commentModalClose');
+        if (commentModalClose) {
+            commentModalClose.addEventListener('click', () => {
+                this.hideCommentModal();
+            });
+        }
 
-        document.getElementById('submitCommentBtn').addEventListener('click', () => {
-            this.submitComment();
-        });
+        const submitCommentBtn = document.getElementById('submitCommentBtn');
+        if (submitCommentBtn) {
+            submitCommentBtn.addEventListener('click', () => {
+                this.submitComment();
+            });
+        }
 
         // 评分星级事件
-        document.querySelectorAll('#ratingStars i').forEach(star => {
-            star.addEventListener('click', (e) => {
-                this.setRating(parseInt(e.target.dataset.rating));
+        const ratingStars = document.querySelectorAll('#ratingStars i');
+        if (ratingStars.length > 0) {
+            ratingStars.forEach(star => {
+                star.addEventListener('click', (e) => {
+                    this.setRating(parseInt(e.target.dataset.rating));
+                });
             });
-        });
+        }
 
         // 图片上传事件
-        document.getElementById('imageUpload').addEventListener('change', (e) => {
-            this.handleImageUpload(e.target.files);
+        const imageUpload = document.getElementById('imageUpload');
+        if (imageUpload) {
+            imageUpload.addEventListener('change', (e) => {
+                this.handleImageUpload(e.target.files);
+            });
+        }
+
+        // 用户主页相关事件
+        const userProfileClose = document.getElementById('userProfileClose');
+        if (userProfileClose) {
+            userProfileClose.addEventListener('click', () => {
+                this.hideUserProfileModal();
+            });
+        }
+
+        const modalFollowBtn = document.getElementById('modalFollowBtn');
+        if (modalFollowBtn) {
+            modalFollowBtn.addEventListener('click', () => {
+                this.toggleModalFollow();
+            });
+        }
+
+        const modalMessageBtn = document.getElementById('modalMessageBtn');
+        if (modalMessageBtn) {
+            modalMessageBtn.addEventListener('click', () => {
+                this.sendMessage();
+            });
+        }
+
+        // 点击模态框背景关闭
+        const userProfileModal = document.getElementById('userProfileModal');
+        if (userProfileModal) {
+            userProfileModal.addEventListener('click', (e) => {
+                if (e.target === userProfileModal) {
+                    this.hideUserProfileModal();
+                }
+            });
+        }
+
+        // ESC键关闭用户主页模态框
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('userProfileModal');
+                if (modal && modal.style.display === 'flex') {
+                    this.hideUserProfileModal();
+                }
+            }
         });
     }
 
@@ -2466,6 +2580,17 @@ class OwlApp {
             item.classList.remove('active');
         });
         document.querySelector(`[data-page="${pageName}"]`).classList.add('active');
+
+        // 根据页面类型执行相应的初始化操作
+        if (pageName === 'frogCircle') {
+            this.loadMoments();
+        } else if (pageName === 'profile') {
+            this.loadProfile();
+        } else if (pageName === 'hotTrips') {
+            this.loadHotTrips();
+        } else if (pageName === 'myTrips') {
+            this.loadMyTrips();
+        }
     }
 
     // 标签切换
@@ -2548,6 +2673,10 @@ class OwlApp {
     loadMoments() {
         const moments = JSON.parse(localStorage.getItem('moments')) || this.getDefaultMoments();
         const momentsList = document.getElementById('momentsList');
+        if (!momentsList) {
+            console.error('momentsList element not found');
+            return;
+        }
         momentsList.innerHTML = '';
 
         moments.forEach(moment => {
@@ -2563,31 +2692,229 @@ class OwlApp {
                 id: 1,
                 username: '旅行达人小王',
                 avatar: 'https://picsum.photos/40/40?random=1',
-                content: '今天在日本浅草寺拍了好多美照，传统文化真的太震撼了！',
-                images: ['https://picsum.photos/300/200?random=10'],
+                content: '🌸 樱花季的日本真的太美了！浅草寺的樱花配上传统建筑，每一帧都是大片！分享几个拍照小技巧：1. 早上8点前光线最好 2. 用樱花做前景 3. 穿浅色衣服更上镜',
+                images: ['https://picsum.photos/300/200?random=10', 'https://picsum.photos/300/200?random=11', 'https://picsum.photos/300/200?random=12'],
                 time: '2小时前',
-                likes: 24,
-                comments: 8
+                likes: 156,
+                comments: 23,
+                location: '📍 日本·东京·浅草寺',
+                tags: ['#樱花季', '#日本旅行', '#拍照技巧'],
+                isLiked: false,
+                isFollowed: true,
+                userLevel: '金牌旅行家',
+                commentsList: [
+                    { username: '摄影小白', content: '太美了！请问用的什么相机？', time: '1小时前', likes: 5 },
+                    { username: '日本控', content: '浅草寺确实值得一去，建议早上人少的时候去', time: '30分钟前', likes: 3 }
+                ]
             },
             {
                 id: 2,
                 username: '背包客小李',
                 avatar: 'https://picsum.photos/40/40?random=2',
-                content: '韩国首尔的夜景太美了，明洞的美食也超级好吃！',
-                images: ['https://picsum.photos/300/200?random=11', 'https://picsum.photos/300/200?random=12'],
+                content: '🇰🇷 首尔弘大艺术区探店！发现了一家超有feel的咖啡店，装修风格很ins风，咖啡也很赞。推荐大家来打卡～',
+                images: ['https://picsum.photos/300/200?random=13', 'https://picsum.photos/300/200?random=14'],
                 time: '5小时前',
-                likes: 18,
-                comments: 5
+                likes: 89,
+                comments: 15,
+                location: '📍 韩国·首尔·弘大',
+                tags: ['#首尔旅行', '#咖啡探店', '#弘大'],
+                isLiked: true,
+                isFollowed: false,
+                userLevel: '资深背包客',
+                commentsList: [
+                    { username: '咖啡控', content: '求店名！下次去首尔一定要打卡', time: '3小时前', likes: 8 },
+                    { username: '韩流迷', content: '弘大真的很多好店，建议多逛逛', time: '2小时前', likes: 4 }
+                ]
             },
             {
                 id: 3,
                 username: '小青蛙',
                 avatar: 'https://picsum.photos/40/40?random=3',
-                content: '分享一个旅行小贴士：记得提前下载离线地图，这样即使没有网络也能导航哦！',
+                content: '🐸 分享一个超实用的旅行小贴士！记得提前下载离线地图，这样即使没有网络也能导航哦！另外推荐几个必备APP：Google翻译、汇率转换器、当地交通APP',
                 images: [],
                 time: '1天前',
-                likes: 32,
-                comments: 12
+                likes: 234,
+                comments: 31,
+                location: '📍 旅行小贴士',
+                tags: ['#旅行攻略', '#实用贴士', '#必备APP'],
+                isLiked: false,
+                isFollowed: true,
+                userLevel: '官方账号',
+                commentsList: [
+                    { username: '新手旅行者', content: '太实用了！请问还有什么推荐的APP吗？', time: '20小时前', likes: 12 },
+                    { username: '老司机', content: '离线地图确实很重要，我每次都会提前下载', time: '18小时前', likes: 7 }
+                ]
+            },
+            {
+                id: 4,
+                username: '美食探索家',
+                avatar: 'https://picsum.photos/40/40?random=4',
+                content: '🍜 泰国曼谷必吃美食清单！1. 冬阴功汤 2. 泰式炒河粉 3. 芒果糯米饭 4. 青木瓜沙拉 5. 泰式奶茶。每一道都让人回味无穷！',
+                images: ['https://picsum.photos/300/200?random=15', 'https://picsum.photos/300/200?random=16', 'https://picsum.photos/300/200?random=17', 'https://picsum.photos/300/200?random=18'],
+                time: '2天前',
+                likes: 567,
+                comments: 45,
+                location: '📍 泰国·曼谷',
+                tags: ['#泰国美食', '#曼谷旅行', '#美食攻略'],
+                isLiked: true,
+                isFollowed: true,
+                userLevel: '美食达人',
+                commentsList: [
+                    { username: '吃货小王', content: '看着就流口水了！请问这些店在哪里？', time: '1天前', likes: 15 },
+                    { username: '泰式控', content: '冬阴功汤是我的最爱！', time: '1天前', likes: 9 }
+                ]
+            },
+            {
+                id: 5,
+                username: '摄影大师',
+                avatar: 'https://picsum.photos/40/40?random=5',
+                content: '📸 富士山日出拍摄攻略！最佳拍摄时间：4-5月，建议凌晨4点到达五合目。器材推荐：广角镜头+三脚架。这张照片是用索尼A7R4拍摄的，后期用Lightroom调色',
+                images: ['https://picsum.photos/300/200?random=19'],
+                time: '3天前',
+                likes: 892,
+                comments: 67,
+                location: '📍 日本·富士山',
+                tags: ['#富士山', '#摄影技巧', '#日出拍摄'],
+                isLiked: false,
+                isFollowed: true,
+                userLevel: '摄影大师',
+                commentsList: [
+                    { username: '摄影新手', content: '太震撼了！请问具体在哪个位置拍摄的？', time: '2天前', likes: 23 },
+                    { username: '器材党', content: 'A7R4确实很强大，请问用的什么镜头？', time: '2天前', likes: 18 }
+                ]
+            },
+            {
+                id: 6,
+                username: '欧洲游侠',
+                avatar: 'https://picsum.photos/40/40?random=6',
+                content: '🇫🇷 巴黎铁塔夜景太震撼了！建议傍晚时分去，既能拍到日落又能拍到夜景。记得提前预约，排队时间很长。分享一个小技巧：在夏乐宫拍摄角度最佳！',
+                images: ['https://picsum.photos/300/200?random=20', 'https://picsum.photos/300/200?random=21', 'https://picsum.photos/300/200?random=22', 'https://picsum.photos/300/200?random=23', 'https://picsum.photos/300/200?random=24'],
+                time: '4天前',
+                likes: 723,
+                comments: 52,
+                location: '📍 法国·巴黎·埃菲尔铁塔',
+                tags: ['#巴黎旅行', '#埃菲尔铁塔', '#夜景拍摄', '#欧洲游'],
+                isLiked: true,
+                isFollowed: false,
+                userLevel: '欧洲专家',
+                commentsList: [
+                    { username: '巴黎迷', content: '夏乐宫确实是最佳拍摄点！请问用的什么相机？', time: '3天前', likes: 18 },
+                    { username: '旅行小白', content: '请问需要提前多久预约？', time: '3天前', likes: 12 }
+                ]
+            },
+            {
+                id: 7,
+                username: '海岛控',
+                avatar: 'https://picsum.photos/40/40?random=7',
+                content: '🏝️ 马尔代夫的水屋体验太棒了！透明玻璃地板，躺在床上就能看到海底世界。推荐选择日落水屋，性价比最高。记得带防水相机，浮潜时能拍到很多美照！',
+                images: ['https://picsum.photos/300/200?random=25', 'https://picsum.photos/300/200?random=26'],
+                time: '1周前',
+                likes: 445,
+                comments: 38,
+                location: '📍 马尔代夫·马累',
+                tags: ['#马尔代夫', '#海岛度假', '#水屋体验', '#浮潜'],
+                isLiked: false,
+                isFollowed: true,
+                userLevel: '海岛达人',
+                commentsList: [
+                    { username: '度假控', content: '请问哪个岛的水屋性价比最高？', time: '6天前', likes: 16 },
+                    { username: '潜水爱好者', content: '浮潜能看到什么鱼？', time: '5天前', likes: 8 }
+                ]
+            },
+            {
+                id: 8,
+                username: '文化探索者',
+                avatar: 'https://picsum.photos/40/40?random=8',
+                content: '🏛️ 罗马斗兽场的历史感太震撼了！建议购买VIP门票，可以进入地下区域。最佳参观时间是早上9点，人少光线好。记得下载语音导览，了解历史背景很重要！',
+                images: ['https://picsum.photos/300/200?random=27'],
+                time: '1周前',
+                likes: 334,
+                comments: 29,
+                location: '📍 意大利·罗马·斗兽场',
+                tags: ['#罗马旅行', '#斗兽场', '#历史文化', '#意大利'],
+                isLiked: true,
+                isFollowed: false,
+                userLevel: '文化学者',
+                commentsList: [
+                    { username: '历史迷', content: '地下区域有什么特别的？', time: '6天前', likes: 14 },
+                    { username: '建筑爱好者', content: '请问建筑结构有什么特点？', time: '5天前', likes: 7 }
+                ]
+            },
+            {
+                id: 9,
+                username: '滑雪达人',
+                avatar: 'https://picsum.photos/40/40?random=9',
+                content: '⛷️ 北海道二世谷滑雪场太棒了！粉雪质量超好，适合各种水平的滑雪者。推荐住在滑雪场附近，方便早起抢第一趟缆车。记得租用专业装备，安全第一！',
+                images: ['https://picsum.photos/300/200?random=28', 'https://picsum.photos/300/200?random=29', 'https://picsum.photos/300/200?random=30'],
+                time: '2周前',
+                likes: 289,
+                comments: 41,
+                location: '📍 日本·北海道·二世谷',
+                tags: ['#北海道', '#滑雪', '#二世谷', '#冬季运动'],
+                isLiked: false,
+                isFollowed: true,
+                userLevel: '滑雪专家',
+                commentsList: [
+                    { username: '滑雪新手', content: '请问适合初学者吗？', time: '1周前', likes: 11 },
+                    { username: '装备控', content: '推荐什么品牌的滑雪板？', time: '1周前', likes: 9 }
+                ]
+            },
+            {
+                id: 10,
+                username: '沙漠探险家',
+                avatar: 'https://picsum.photos/40/40?random=10',
+                content: '🏜️ 撒哈拉沙漠的星空太美了！建议参加3天2夜的沙漠团，体验骆驼骑行、沙漠露营。晚上看星星，早上看日出，绝对是一生难忘的经历！',
+                images: ['https://picsum.photos/300/200?random=31', 'https://picsum.photos/300/200?random=32', 'https://picsum.photos/300/200?random=33', 'https://picsum.photos/300/200?random=34'],
+                time: '3周前',
+                likes: 678,
+                comments: 56,
+                location: '📍 摩洛哥·撒哈拉沙漠',
+                tags: ['#撒哈拉沙漠', '#沙漠探险', '#星空摄影', '#摩洛哥'],
+                isLiked: true,
+                isFollowed: true,
+                userLevel: '探险家',
+                commentsList: [
+                    { username: '星空控', content: '请问能看到银河吗？', time: '2周前', likes: 22 },
+                    { username: '摄影爱好者', content: '星空拍摄需要什么器材？', time: '2周前', likes: 18 }
+                ]
+            },
+            {
+                id: 11,
+                username: '城市漫步者',
+                avatar: 'https://picsum.photos/40/40?random=11',
+                content: '🌃 纽约时代广场的夜景太震撼了！建议晚上8点后去，霓虹灯最亮。记得带三脚架，长曝光拍摄效果更好。推荐在百老汇看一场音乐剧，体验真正的纽约文化！',
+                images: ['https://picsum.photos/300/200?random=35'],
+                time: '1个月前',
+                likes: 456,
+                comments: 33,
+                location: '📍 美国·纽约·时代广场',
+                tags: ['#纽约旅行', '#时代广场', '#夜景拍摄', '#百老汇'],
+                isLiked: false,
+                isFollowed: false,
+                userLevel: '城市探索者',
+                commentsList: [
+                    { username: '纽约客', content: '推荐看哪部音乐剧？', time: '3周前', likes: 15 },
+                    { username: '摄影新手', content: '请问相机参数怎么设置？', time: '3周前', likes: 12 }
+                ]
+            },
+            {
+                id: 12,
+                username: '温泉爱好者',
+                avatar: 'https://picsum.photos/40/40?random=12',
+                content: '♨️ 箱根温泉之旅太放松了！推荐住一晚温泉旅馆，体验日式服务。记得提前预约，旺季很难订到。泡温泉时注意时间，不要超过15分钟。',
+                images: ['https://picsum.photos/300/200?random=36', 'https://picsum.photos/300/200?random=37'],
+                time: '1个月前',
+                likes: 234,
+                comments: 28,
+                location: '📍 日本·箱根',
+                tags: ['#箱根温泉', '#日本温泉', '#放松旅行', '#日式体验'],
+                isLiked: true,
+                isFollowed: false,
+                userLevel: '温泉专家',
+                commentsList: [
+                    { username: '温泉控', content: '推荐哪家温泉旅馆？', time: '3周前', likes: 13 },
+                    { username: '日本迷', content: '有什么注意事项吗？', time: '3周前', likes: 8 }
+                ]
             }
         ];
     }
@@ -2596,32 +2923,365 @@ class OwlApp {
     createMomentElement(moment) {
         const momentDiv = document.createElement('div');
         momentDiv.className = 'moment-item';
+        
+        // 生成图片网格
+        const imageGrid = this.generateImageGrid(moment.images);
+        
+        // 生成标签
+        const tagsHtml = moment.tags ? moment.tags.map(tag => `<span class="moment-tag">${tag}</span>`).join('') : '';
+        
+        // 生成评论预览
+        const commentsPreview = this.generateCommentsPreview(moment.commentsList);
+        
         momentDiv.innerHTML = `
             <div class="moment-header">
-                <img src="${moment.avatar}" alt="头像" class="moment-avatar">
-                <div class="moment-user-info">
-                    <div class="moment-username">${moment.username}</div>
-                    <div class="moment-time">${moment.time}</div>
+                <div class="moment-user-section">
+                    <img src="${moment.avatar}" alt="头像" class="moment-avatar">
+                    <div class="moment-user-info">
+                        <div class="moment-username">
+                            ${moment.username}
+                            ${moment.userLevel ? `<span class="user-level">${moment.userLevel}</span>` : ''}
+                        </div>
+                        <div class="moment-meta">
+                            <span class="moment-time">${moment.time}</span>
+                            ${moment.location ? `<span class="moment-location">${moment.location}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+                <div class="moment-actions-header">
+                    ${moment.isFollowed ? '<button class="follow-btn followed">已关注</button>' : '<button class="follow-btn">关注</button>'}
+                    <button class="more-btn">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
                 </div>
             </div>
+            
             <div class="moment-content">${moment.content}</div>
-            ${moment.images.length > 0 ? `
-                <div class="moment-images">
-                    ${moment.images.map(img => `<img src="${img}" alt="动态图片" class="moment-image">`).join('')}
+            
+            ${tagsHtml ? `<div class="moment-tags">${tagsHtml}</div>` : ''}
+            
+            ${imageGrid}
+            
+            <div class="moment-stats">
+                <div class="moment-stat">
+                    <i class="fas fa-eye"></i>
+                    <span>${Math.floor(moment.likes * 3.5)}</span>
                 </div>
-            ` : ''}
+            </div>
+            
+            ${commentsPreview}
+            
             <div class="moment-actions">
-                <div class="moment-action">
-                    <i class="far fa-heart"></i>
+                <button class="action-btn like-btn ${moment.isLiked ? 'liked' : ''}" data-moment-id="${moment.id}">
+                    <i class="${moment.isLiked ? 'fas' : 'far'} fa-heart"></i>
                     <span>${moment.likes}</span>
-                </div>
-                <div class="moment-action">
+                </button>
+                <button class="action-btn comment-btn" data-moment-id="${moment.id}">
                     <i class="far fa-comment"></i>
                     <span>${moment.comments}</span>
-                </div>
+                </button>
+                <button class="action-btn share-btn">
+                    <i class="fas fa-share"></i>
+                    <span>分享</span>
+                </button>
+                <button class="action-btn collect-btn">
+                    <i class="far fa-bookmark"></i>
+                    <span>收藏</span>
+                </button>
             </div>
         `;
+        
+        // 绑定事件
+        this.bindMomentEvents(momentDiv, moment);
+        
         return momentDiv;
+    }
+
+    // 生成图片网格
+    generateImageGrid(images) {
+        if (!images || images.length === 0) return '';
+        
+        if (images.length === 1) {
+            return `<div class="moment-images single">
+                <img src="${images[0]}" alt="动态图片" class="moment-image">
+            </div>`;
+        }
+        
+        if (images.length === 2) {
+            return `<div class="moment-images double">
+                <img src="${images[0]}" alt="动态图片" class="moment-image">
+                <img src="${images[1]}" alt="动态图片" class="moment-image">
+            </div>`;
+        }
+        
+        if (images.length === 3) {
+            return `<div class="moment-images triple">
+                <img src="${images[0]}" alt="动态图片" class="moment-image">
+                <img src="${images[1]}" alt="动态图片" class="moment-image">
+                <img src="${images[2]}" alt="动态图片" class="moment-image">
+            </div>`;
+        }
+        
+        // 4张或更多图片
+        const displayImages = images.slice(0, 4);
+        const remainingCount = images.length - 4;
+        
+        return `<div class="moment-images grid">
+            ${displayImages.map((img, index) => `
+                <div class="image-container">
+                    <img src="${img}" alt="动态图片" class="moment-image">
+                    ${index === 3 && remainingCount > 0 ? `<div class="image-overlay">+${remainingCount}</div>` : ''}
+                </div>
+            `).join('')}
+        </div>`;
+    }
+
+    // 生成评论预览
+    generateCommentsPreview(commentsList) {
+        if (!commentsList || commentsList.length === 0) return '';
+        
+        const previewComments = commentsList.slice(0, 2);
+        return `<div class="comments-preview">
+            ${previewComments.map(comment => `
+                <div class="comment-preview-item">
+                    <span class="comment-username">${comment.username}</span>
+                    <span class="comment-content">${comment.content}</span>
+                </div>
+            `).join('')}
+            ${commentsList.length > 2 ? `<div class="more-comments">查看全部${commentsList.length}条评论</div>` : ''}
+        </div>`;
+    }
+
+    // 绑定动态事件
+    bindMomentEvents(momentDiv, moment) {
+        // 点赞事件
+        const likeBtn = momentDiv.querySelector('.like-btn');
+        if (likeBtn) {
+            likeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleLike(moment.id);
+            });
+        }
+
+        // 评论事件
+        const commentBtn = momentDiv.querySelector('.comment-btn');
+        if (commentBtn) {
+            commentBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.showCommentModal(moment.id);
+            });
+        }
+
+        // 关注事件
+        const followBtn = momentDiv.querySelector('.follow-btn');
+        if (followBtn) {
+            followBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleFollow(moment.id);
+            });
+        }
+
+        // 更多按钮事件（三个小点）
+        const moreBtn = momentDiv.querySelector('.more-btn');
+        if (moreBtn) {
+            moreBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.showUserProfile(moment);
+            });
+        }
+
+        // 图片点击事件
+        const images = momentDiv.querySelectorAll('.moment-image');
+        images.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.showImageModal(img.src);
+            });
+        });
+    }
+
+    // 切换点赞状态
+    toggleLike(momentId) {
+        const moments = JSON.parse(localStorage.getItem('moments')) || this.getDefaultMoments();
+        const moment = moments.find(m => m.id === momentId);
+        
+        if (moment) {
+            moment.isLiked = !moment.isLiked;
+            moment.likes += moment.isLiked ? 1 : -1;
+            localStorage.setItem('moments', JSON.stringify(moments));
+            this.loadMoments();
+        }
+    }
+
+    // 切换关注状态
+    toggleFollow(momentId) {
+        const moments = JSON.parse(localStorage.getItem('moments')) || this.getDefaultMoments();
+        const moment = moments.find(m => m.id === momentId);
+        
+        if (moment) {
+            moment.isFollowed = !moment.isFollowed;
+            localStorage.setItem('moments', JSON.stringify(moments));
+            this.loadMoments();
+        }
+    }
+
+    // 显示评论模态框
+    showCommentModal(momentId) {
+        // 这里可以实现评论详情页面
+        console.log('显示评论模态框:', momentId);
+    }
+
+    // 显示用户主页
+    showUserProfile(moment) {
+        // 生成用户数据
+        const userData = this.generateUserProfileData(moment.username);
+        
+        // 填充用户信息
+        document.getElementById('modalUserAvatar').src = moment.avatar;
+        document.getElementById('modalUsername').textContent = moment.username;
+        document.getElementById('modalUserLevel').textContent = moment.userLevel;
+        document.getElementById('modalUserBio').textContent = userData.bio;
+        document.getElementById('modalUserMoments').textContent = userData.moments;
+        document.getElementById('modalUserFollowers').textContent = userData.followers;
+        document.getElementById('modalUserFollowing').textContent = userData.following;
+        
+        // 生成用户最近动态
+        this.generateUserMomentsList(userData.recentMoments);
+        
+        // 设置关注按钮状态
+        const followBtn = document.getElementById('modalFollowBtn');
+        if (moment.isFollowed) {
+            followBtn.textContent = '已关注';
+            followBtn.classList.add('followed');
+        } else {
+            followBtn.textContent = '关注';
+            followBtn.classList.remove('followed');
+        }
+        
+        // 显示模态框
+        document.getElementById('userProfileModal').style.display = 'flex';
+    }
+
+    // 生成用户主页数据
+    generateUserProfileData(username) {
+        const userProfiles = {
+            '旅行达人小王': {
+                bio: '热爱旅行和摄影，去过20+个国家，分享旅行攻略和美照 📸',
+                moments: 156,
+                followers: 2340,
+                following: 89,
+                recentMoments: [
+                    { content: '🌸 樱花季的日本真的太美了！', time: '2小时前', likes: 156 },
+                    { content: '🇰🇷 首尔美食探店分享', time: '1天前', likes: 89 },
+                    { content: '📸 富士山日出拍摄攻略', time: '3天前', likes: 234 }
+                ]
+            },
+            '背包客小李': {
+                bio: '背包旅行爱好者，喜欢探索小众景点，记录路上的美好时光 🎒',
+                moments: 89,
+                followers: 567,
+                following: 234,
+                recentMoments: [
+                    { content: '🇰🇷 首尔弘大艺术区探店！', time: '5小时前', likes: 89 },
+                    { content: '🏔️ 徒步尼泊尔安娜普尔纳', time: '2天前', likes: 156 },
+                    { content: '🌊 巴厘岛冲浪体验', time: '1周前', likes: 78 }
+                ]
+            },
+            '小青蛙': {
+                bio: '官方账号，分享旅行小贴士和实用攻略 🐸',
+                moments: 234,
+                followers: 8900,
+                following: 12,
+                recentMoments: [
+                    { content: '🐸 分享一个超实用的旅行小贴士！', time: '1天前', likes: 234 },
+                    { content: '📱 推荐几个必备旅行APP', time: '3天前', likes: 189 },
+                    { content: '💡 旅行省钱小技巧', time: '1周前', likes: 345 }
+                ]
+            },
+            '美食探索家': {
+                bio: '美食博主，走遍世界寻找美味，分享各地特色美食 🍜',
+                moments: 567,
+                followers: 12340,
+                following: 156,
+                recentMoments: [
+                    { content: '🍜 泰国曼谷必吃美食清单！', time: '2天前', likes: 567 },
+                    { content: '🍣 日本寿司制作技巧', time: '4天前', likes: 234 },
+                    { content: '🍕 意大利披萨探店', time: '1周前', likes: 189 }
+                ]
+            },
+            '摄影大师': {
+                bio: '专业摄影师，擅长风景和人文摄影，分享拍摄技巧 📷',
+                moments: 892,
+                followers: 15600,
+                following: 89,
+                recentMoments: [
+                    { content: '📸 富士山日出拍摄攻略！', time: '3天前', likes: 892 },
+                    { content: '🌅 日落拍摄技巧分享', time: '5天前', likes: 456 },
+                    { content: '📱 手机摄影小技巧', time: '1周前', likes: 234 }
+                ]
+            }
+        };
+        
+        return userProfiles[username] || {
+            bio: '热爱旅行的用户，分享美好时光 ✈️',
+            moments: Math.floor(Math.random() * 100) + 50,
+            followers: Math.floor(Math.random() * 1000) + 100,
+            following: Math.floor(Math.random() * 200) + 50,
+            recentMoments: [
+                { content: '分享一次美好的旅行经历', time: '1天前', likes: Math.floor(Math.random() * 100) + 50 },
+                { content: '发现了一个很棒的地方', time: '3天前', likes: Math.floor(Math.random() * 100) + 30 },
+                { content: '旅行中的小确幸', time: '1周前', likes: Math.floor(Math.random() * 100) + 20 }
+            ]
+        };
+    }
+
+    // 生成用户最近动态列表
+    generateUserMomentsList(recentMoments) {
+        const momentsList = document.getElementById('modalUserMomentsList');
+        momentsList.innerHTML = '';
+        
+        recentMoments.forEach(moment => {
+            const momentElement = document.createElement('div');
+            momentElement.className = 'modal-moment-item';
+            momentElement.innerHTML = `
+                <div class="modal-moment-content">${moment.content}</div>
+                <div class="modal-moment-meta">
+                    <span class="modal-moment-time">${moment.time}</span>
+                    <span class="modal-moment-likes">❤️ ${moment.likes}</span>
+                </div>
+            `;
+            momentsList.appendChild(momentElement);
+        });
+    }
+
+    // 隐藏用户主页模态框
+    hideUserProfileModal() {
+        const modal = document.getElementById('userProfileModal');
+        if (modal) {
+            modal.style.display = 'none';
+            console.log('用户主页模态框已关闭');
+        } else {
+            console.error('未找到用户主页模态框元素');
+        }
+    }
+
+    // 切换模态框中的关注状态
+    toggleModalFollow() {
+        const followBtn = document.getElementById('modalFollowBtn');
+        const isFollowed = followBtn.classList.contains('followed');
+        
+        if (isFollowed) {
+            followBtn.textContent = '关注';
+            followBtn.classList.remove('followed');
+        } else {
+            followBtn.textContent = '已关注';
+            followBtn.classList.add('followed');
+        }
+    }
+
+    // 发送消息
+    sendMessage() {
+        alert('消息功能开发中...');
     }
 
     // 显示发布动态模态框
@@ -2652,7 +3312,13 @@ class OwlApp {
             images: [], // 这里可以添加图片处理逻辑
             time: '刚刚',
             likes: 0,
-            comments: 0
+            comments: 0,
+            location: '📍 旅行分享',
+            tags: this.extractTags(content),
+            isLiked: false,
+            isFollowed: false,
+            userLevel: '旅行新手',
+            commentsList: []
         };
 
         const moments = JSON.parse(localStorage.getItem('moments')) || [];
@@ -2661,6 +3327,17 @@ class OwlApp {
 
         this.loadMoments();
         this.hidePostMomentModal();
+    }
+
+    // 提取标签
+    extractTags(content) {
+        const tagRegex = /#([^#\s]+)/g;
+        const tags = [];
+        let match;
+        while ((match = tagRegex.exec(content)) !== null) {
+            tags.push(`#${match[1]}`);
+        }
+        return tags;
     }
 
     // 处理动态图片上传

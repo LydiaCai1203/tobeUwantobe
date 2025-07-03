@@ -359,10 +359,6 @@
             <i class="fas fa-home"></i>
             <span>首页</span>
         </div>
-        <div class="nav-item" data-page="frogCircle">
-            <i class="fas fa-users"></i>
-            <span>蛙友圈</span>
-        </div>
         <div class="nav-item" data-page="hotTrips">
             <i class="fas fa-fire"></i>
             <span>热门</span>
@@ -370,6 +366,10 @@
         <div class="nav-item" data-page="myTrips">
             <i class="fas fa-map"></i>
             <span>行程</span>
+        </div>
+        <div class="nav-item" data-page="frogCircle">
+            <i class="fas fa-users"></i>
+            <span>蛙友圈</span>
         </div>
         <div class="nav-item" data-page="profile">
             <i class="fas fa-user"></i>
@@ -436,6 +436,52 @@
             <div class="modal-footer">
                 <button class="btn-primary" id="publishMomentBtn">发布</button>
                 <button class="btn-secondary" id="cancelPostBtn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 用户主页模态框 -->
+    <div class="modal" id="userProfileModal">
+        <div class="modal-content user-profile-modal">
+            <div class="modal-header">
+                <h3>用户主页</h3>
+                <button class="modal-close" id="userProfileClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="user-profile-content">
+                    <div class="user-profile-header">
+                        <img src="" alt="用户头像" id="modalUserAvatar" class="modal-user-avatar">
+                        <div class="modal-user-info">
+                            <h4 id="modalUsername">用户名</h4>
+                            <p id="modalUserLevel" class="modal-user-level">用户等级</p>
+                            <p id="modalUserBio" class="modal-user-bio">用户简介</p>
+                        </div>
+                    </div>
+                    <div class="user-profile-stats">
+                        <div class="profile-stat">
+                            <span class="stat-number" id="modalUserMoments">0</span>
+                            <span class="stat-label">动态</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="stat-number" id="modalUserFollowers">0</span>
+                            <span class="stat-label">粉丝</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="stat-number" id="modalUserFollowing">0</span>
+                            <span class="stat-label">关注</span>
+                        </div>
+                    </div>
+                    <div class="user-profile-actions">
+                        <button class="btn-primary" id="modalFollowBtn">关注</button>
+                        <button class="btn-secondary" id="modalMessageBtn">发消息</button>
+                    </div>
+                    <div class="user-recent-moments">
+                        <h5>最近动态</h5>
+                        <div id="modalUserMomentsList" class="modal-moments-list">
+                            <!-- 用户最近动态将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
