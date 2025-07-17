@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小青蛙的旅行日记 - 治愈系旅行指南</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes danmaku-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        @keyframes danmaku-scroll-reverse {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+        .danmaku-track {
+            animation: danmaku-scroll 20s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1><i class="fas fa-leaf"></i> 小青蛙的旅行日记</h1>
+            </div>
+            <div class="header-right">
+                <div class="location-info" id="locationInfo">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="currentLocation">定位中...</span>
+                </div>
+                <button id="postMomentBtnHeader" style="display: none; margin-left: 1rem; margin-top: 4px; background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; height: 100%;">
+                    <img src="static/publish.svg" alt="发布动态" style="width: 28px; height: 28px; object-fit: contain; display: block;">
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 首页内容 -->
+        <div class="page-content" id="homePage">
+            <!-- 欢迎横幅 -->
+            <section class="welcome-banner">
+                <div class="welcome-content">
+                    <div class="welcome-text">
+                        <h1 class="welcome-title">
+                            <span class="title-main">小青蛙的旅行日记</span>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin: 0.5rem 0 0.2rem 0;">
+                                <div style="display: flex; align-items: center; gap: 0.4rem; background: rgba(76,175,80,0.08); padding: 0.5rem 1rem; border-radius: 16px; border: 1px solid #e0f2f1;">
+                                    <i class="fas fa-map-marked-alt" style="color: #4caf50;"></i>
+                                    <span style="font-size: 0.95rem; color: #2d5016;">智能导航</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.4rem; background: rgba(76,175,80,0.08); padding: 0.5rem 1rem; border-radius: 16px; border: 1px solid #e0f2f1;">
+                                    <i class="fas fa-clock" style="color: #4caf50;"></i>
+                                    <span style="font-size: 0.95rem; color: #2d5016;">时间管理</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.4rem; background: rgba(76,175,80,0.08); padding: 0.5rem 1rem; border-radius: 16px; border: 1px solid #e0f2f1;">
+                                    <i class="fas fa-comments" style="color: #4caf50;"></i>
+                                    <span style="font-size: 0.95rem; color: #2d5016;">社区分享</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.4rem; background: rgba(76,175,80,0.08); padding: 0.5rem 1rem; border-radius: 16px; border: 1px solid #e0f2f1;">
+                                    <i class="fas fa-heart" style="color: #4caf50;"></i>
+                                    <span style="font-size: 0.95rem; color: #2d5016;">治愈体验</span>
+                                </div>
+                            </div>
+                        </h1>
+                        <p class="welcome-description">
+                            跟随小青蛙的脚步，探索世界的美好。每一次旅行都是一次心灵的治愈，
+                            让我们在旅途中发现生活的诗意与远方。
+                        </p>
+                        <div class="welcome-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">1000+</div>
+                                <div class="stat-label">旅行者</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">50+</div>
+                                <div class="stat-label">目的地</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">满意度</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 用户推荐 -->
+            <section class="testimonials-section" style="padding: 0; margin: 0;">
+                <div class="danmaku-container" style="background: transparent; border-radius: 20px; padding: 0.5rem 0.2rem; overflow: hidden; position: relative; width: 100%; min-height: 60px; display: flex; flex-direction: column; gap: 0.2rem;">
+                    <div class="danmaku-track danmaku-track-1" id="danmakuTrack1" style="display: flex; align-items: center; gap: 1.2rem; white-space: nowrap; animation: danmaku-scroll 10s linear infinite;">
+                        <div class="danmaku-item" style="display: inline-flex; align-items: center; background: rgba(76,175,80,0.07); border-radius: 16px; padding: 0.3rem 0.7rem; margin-right: 0.5rem; box-shadow: 0 2px 8px rgba(76,175,80,0.05);">
+                            <span class="danmaku-avatar" style="width: 28px; height: 28px; border-radius: 50%; background: #e0f2f1; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 0.5rem;">🐸</span>
+                            <span style="font-weight: 600; color: #2d5016; margin-right: 0.4rem; font-size: 0.95rem;">小雨：</span>
+                            <span style="color: #4a6741; font-size: 0.9rem;">小青蛙让我的日本之旅变得如此轻松愉快，每一个细节都考虑得很周到！</span>
+                        </div>
+                        <div class="danmaku-item" style="display: inline-flex; align-items: center; background: rgba(76,175,80,0.07); border-radius: 16px; padding: 0.3rem 0.7rem; margin-right: 0.5rem; box-shadow: 0 2px 8px rgba(76,175,80,0.05);">
+                            <span class="danmaku-avatar" style="width: 28px; height: 28px; border-radius: 50%; background: #e0f2f1; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 0.5rem;">🐸</span>
+                            <span style="font-weight: 600; color: #2d5016; margin-right: 0.4rem; font-size: 0.95rem;">小明：</span>
+                            <span style="color: #4a6741; font-size: 0.9rem;">界面太可爱了！就像在玩游戏一样，让旅行充满了乐趣。</span>
+                        </div>
+                        <div class="danmaku-item" style="display: inline-flex; align-items: center; background: rgba(76,175,80,0.07); border-radius: 16px; padding: 0.3rem 0.7rem; margin-right: 0.5rem; box-shadow: 0 2px 8px rgba(76,175,80,0.05);">
+                            <span class="danmaku-avatar" style="width: 28px; height: 28px; border-radius: 50%; background: #e0f2f1; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 0.5rem;">🐸</span>
+                            <span style="font-weight: 600; color: #2d5016; margin-right: 0.4rem; font-size: 0.95rem;">小芳：</span>
+                            <span style="color: #4a6741; font-size: 0.9rem;">导航功能很强大，帮我节省了很多时间，强烈推荐！</span>
+                        </div>
+                    </div>
+                    <div class="danmaku-track danmaku-track-2" id="danmakuTrack2" style="display: flex; align-items: center; gap: 1.2rem; white-space: nowrap; animation: danmaku-scroll-reverse 11s linear infinite;">
+                        <div class="danmaku-item" style="display: inline-flex; align-items: center; background: rgba(76,175,80,0.07); border-radius: 16px; padding: 0.3rem 0.7rem; margin-right: 0.5rem; box-shadow: 0 2px 8px rgba(76,175,80,0.05);">
+                            <span class="danmaku-avatar" style="width: 28px; height: 28px; border-radius: 50%; background: #e0f2f1; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 0.5rem;">🐸</span>
+                            <span style="font-weight: 600; color: #2d5016; margin-right: 0.4rem; font-size: 0.95rem;">小芳：</span>
+                            <span style="color: #4a6741; font-size: 0.9rem;">导航功能很强大，帮我节省了很多时间，强烈推荐！</span>
+                        </div>
+                        <div class="danmaku-item" style="display: inline-flex; align-items: center; background: rgba(76,175,80,0.07); border-radius: 16px; padding: 0.3rem 0.7rem; margin-right: 0.5rem; box-shadow: 0 2px 8px rgba(76,175,80,0.05);">
+                            <span class="danmaku-avatar" style="width: 28px; height: 28px; border-radius: 50%; background: #e0f2f1; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 0.5rem;">🐸</span>
+                            <span style="font-weight: 600; color: #2d5016; margin-right: 0.4rem; font-size: 0.95rem;">小明：</span>
+                            <span style="color: #4a6741; font-size: 0.9rem;">界面太可爱了！就像在玩游戏一样，让旅行充满了乐趣。</span>
+                        </div>
+                        <div class="danmaku-item" style="display: inline-flex; align-items: center; background: rgba(76,175,80,0.07); border-radius: 16px; padding: 0.3rem 0.7rem; margin-right: 0.5rem; box-shadow: 0 2px 8px rgba(76,175,80,0.05);">
+                            <span class="danmaku-avatar" style="width: 28px; height: 28px; border-radius: 50%; background: #e0f2f1; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 0.5rem;">🐸</span>
+                            <span style="font-weight: 600; color: #2d5016; margin-right: 0.4rem; font-size: 0.95rem;">小雨：</span>
+                            <span style="color: #4a6741; font-size: 0.9rem;">小青蛙让我的日本之旅变得如此轻松愉快，每一个细节都考虑得很周到！</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门路线选择 -->
+            <section class="trip-selector" id="tripSelector" style="padding: 1.5rem;">
+                <h2>🌿 选择您的旅行路线</h2>
+                <div class="trip-options" style="gap: 0.8rem;">
+                    <div class="trip-option active" data-trip="shanghai-japan-3days" style="padding: 1rem;">
+                        <div class="trip-route">
+                            <span class="city">上海</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">日本</span>
+                        </div>
+                        <div class="trip-info-row" style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                            <span class="trip-duration" style="font-size: 0.9em; color: #689f38; font-weight: 500">3天2晚</span>
+                            <span class="trip-stats-inline" style="display: flex; gap: 1rem; font-size: 0.8rem;">
+                                <span class="participants" style="color: #4caf50; font-weight: 500">156人参与</span>
+                                <span class="rating" style="color: #ff9800; font-weight:50">⭐ 4.8</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="trip-option" data-trip="beijing-korea-2days" style="padding: 1rem;">
+                        <div class="trip-route">
+                            <span class="city">北京</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">韩国</span>
+                        </div>
+                        <div class="trip-info-row" style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                            <span class="trip-duration" style="font-size: 0.9em; color: #689f38; font-weight: 500">2天1晚</span>
+                            <span class="trip-stats-inline" style="display: flex; gap: 1rem; font-size: 0.8rem;">
+                                <span class="participants" style="color: #4caf50; font-weight: 500">89人参与</span>
+                                <span class="rating" style="color: #ff9800; font-weight: 500">⭐ 4.6</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="trip-option" data-trip="shanghai-japan-2days" style="padding: 1rem;">
+                        <div class="trip-route">
+                            <span class="city">上海</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">日本</span>
+                        </div>
+                        <div class="trip-info-row" style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                            <span class="trip-duration" style="font-size: 0.9em; color: #689f38; font-weight: 500">2天1晚</span>
+                            <span class="trip-stats-inline" style="display: flex; gap: 1rem; font-size: 0.8rem;">
+                                <span class="participants" style="color: #4caf50; font-weight: 500">203人参与</span>
+                                <span class="rating" style="color: #ff9800; font-weight: 500">⭐ 4.7</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="trip-option" data-trip="beijing-korea-3days" style="padding: 1rem;">
+                        <div class="trip-route">
+                            <span class="city">北京</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">韩国</span>
+                        </div>
+                        <div class="trip-info-row" style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                            <span class="trip-duration" style="font-size: 0.9em; color: #689f38; font-weight: 500">3天2晚</span>
+                            <span class="trip-stats-inline" style="display: flex; gap: 1rem; font-size: 0.8rem;">
+                                <span class="participants" style="color: #4caf50; font-weight: 500">127人参与</span>
+                                <span class="rating" style="color: #ff9800; font-weight: 500">⭐ 4.5</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="trip-option" data-trip="guangzhou-thailand-4days" style="padding: 1rem;">
+                        <div class="trip-route">
+                            <span class="city">广州</span>
+                            <i class="fas fa-plane"></i>
+                            <span class="city">泰国</span>
+                        </div>
+                        <div class="trip-info-row" style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                            <span class="trip-duration" style="font-size: 0.9em; color: #689f38; font-weight: 500">4天3晚</span>
+                            <span class="trip-stats-inline" style="display: flex; gap: 1rem; font-size: 0.8rem;">
+                                <span class="participants" style="color: #4caf50; font-weight: 500">234人参与</span>
+                                <span class="rating" style="color: #ff9800; font-weight: 500">⭐ 4.9</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-primary" id="startTripBtn">开始旅行</button>
+            </section>
+        </div>
+
+        <!-- 蛙友圈页面 -->
+        <div class="page-content" id="frogCirclePage" style="display: none;">
+            <div class="moments-list" id="momentsList">
+                <!-- 动态列表将通过JavaScript动态生成 -->
+            </div>
+        </div>
+
+        <!-- 我的行程页面 -->
+        <div class="page-content" id="myTripsPage" style="display: none;">
+            <div class="trips-tabs">
+                <button class="tab-btn active" data-tab="ongoing">进行中</button>
+                <button class="tab-btn" data-tab="completed">已完成</button>
+            </div>
+            <div class="trips-content">
+                <div class="tab-content active" id="ongoingTrips">
+                    <!-- 进行中的行程 -->
+                </div>
+                <div class="tab-content" id="completedTrips">
+                    <!-- 已完成的行程 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 我的页面 -->
+        <div class="page-content" id="profilePage" style="display: none;">
+            <div class="profile-header">
+                <div class="profile-avatar" id="profileAvatar">
+                    <img src="https://picsum.photos/100/100?random=1" alt="头像" id="avatarImg">
+                    <div class="avatar-edit">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h3 class="profile-name" id="profileName">小青蛙</h3>
+                    <p class="profile-bio" id="profileBio">热爱旅行的小青蛙 🐸</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">旅行次数</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">国家</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">156</span>
+                            <span class="stat-label">动态</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-menu">
+                <div class="menu-item" id="editProfileBtn">
+                    <i class="fas fa-user-edit"></i>
+                    <span>编辑资料</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>设置</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>帮助与反馈</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>关于我们</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部导航栏 -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>首页</span>
+            </div>
+            <!-- <div class="nav-item" data-page="hotTrips">
+                <i class="fas fa-fire"></i>
+                <span>热门</span>
+            </div> -->
+            <div class="nav-item" data-page="myTrips">
+                <i class="fas fa-map"></i>
+                <span>行程</span>
+            </div>
+            <div class="nav-item" data-page="frogCircle">
+                <i class="fas fa-users"></i>
+                <span>蛙友圈</span>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>我的</span>
+            </div>
+        </nav>
+
+        <!-- 编辑资料模态框 -->
+        <div class="modal" id="editProfileModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>编辑资料</h3>
+                    <button class="modal-close" id="editProfileClose">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="edit-form">
+                        <div class="form-group">
+                            <label>昵称</label>
+                            <input type="text" id="editName" placeholder="请输入昵称">
+                        </div>
+                        <div class="form-group">
+                            <label>个性签名</label>
+                            <textarea id="editBio" placeholder="介绍一下自己吧..." rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>更换头像</label>
+                            <div class="avatar-upload">
+                                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                                <button class="btn-secondary" onclick="document.getElementById('avatarUpload').click()">
+                                    <i class="fas fa-upload"></i>
+                                    选择图片
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-primary" id="saveProfileBtn">保存</button>
+                    <button class="btn-secondary" id="cancelEditBtn">取消</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 发布动态模态框 -->
+        <div class="modal" id="postMomentModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>发布动态</h3>
+                    <button class="modal-close" id="postMomentClose">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="post-form">
+                        <textarea id="momentContent" placeholder="分享你的旅行心情..." rows="4"></textarea>
+                        <div class="image-upload-section">
+                            <label for="momentImageUpload" class="image-upload-label">
+                                <i class="fas fa-camera"></i>
+                                <span>添加图片</span>
+                            </label>
+                            <input type="file" id="momentImageUpload" accept="image/*" multiple style="display: none;">
+                            <div class="image-preview" id="momentImagePreview"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-primary" id="publishMomentBtn">发布</button>
+                    <button class="btn-secondary" id="cancelPostBtn">取消</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 用户主页模态框 -->
+        <div class="modal" id="userProfileModal">
+            <div class="modal-content user-profile-modal">
+                <div class="modal-header">
+                    <h3>用户主页</h3>
+                    <button class="modal-close" id="userProfileClose">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="user-profile-content">
+                        <div class="user-profile-header">
+                            <img src="" alt="用户头像" id="modalUserAvatar" class="modal-user-avatar">
+                            <div class="modal-user-info">
+                                <h4 id="modalUsername">用户名</h4>
+                                <p id="modalUserLevel" class="modal-user-level">用户等级</p>
+                                <p id="modalUserBio" class="modal-user-bio">用户简介</p>
+                            </div>
+                        </div>
+                        <div class="user-profile-stats">
+                            <div class="profile-stat">
+                                <span class="stat-number" id="modalUserMoments">0</span>
+                                <span class="stat-label">动态</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="stat-number" id="modalUserFollowers">0</span>
+                                <span class="stat-label">粉丝</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="stat-number" id="modalUserFollowing">0</span>
+                                <span class="stat-label">关注</span>
+                            </div>
+                        </div>
+                        <div class="user-profile-actions">
+                            <button class="btn-primary" id="modalFollowBtn">关注</button>
+                            <button class="btn-secondary" id="modalMessageBtn">发消息</button>
+                        </div>
+                        <div class="user-recent-moments">
+                            <h5>最近动态</h5>
+                            <div id="modalUserMomentsList" class="modal-moments-list">
+                                <!-- 用户最近动态将通过JavaScript动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="app.js"></script>
+    </main>
+</body>
+</html> 

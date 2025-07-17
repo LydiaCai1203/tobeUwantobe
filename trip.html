@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅行进行中 - 小青蛙的旅行日记</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <button id="backToHomeBtn" style="background: none; border: none; padding: 0.05rem 0.1rem 0.05rem 0; margin-right: 0; cursor: pointer; display: flex; align-items: center;">
+                    <img src="static/back.svg" alt="返回" style="width: 40px; height: 40px; display: block;" />
+                </button>
+            </div>
+            <div class="location-info" id="locationInfo">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="currentLocation">定位中...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 行程时间线 -->
+        <section class="timeline-section" id="timelineSection">
+            <div class="timeline-header">
+                <h2><span id="tripRouteTitle"></span></h2>
+                <div class="timeline-info">
+                    <div class="current-time" id="currentTime"></div>
+                    <div class="game-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-info" id="progressInfo">
+                            <span id="completedCount">0</span> / <span id="totalCount">0</span> 计划完成
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline" id="timeline">
+                <!-- 时间线内容将通过JavaScript动态生成 -->
+            </div>
+
+            <!-- 当前位置显示 -->
+            <div class="current-location-card">
+                <h3><i class="fas fa-map-marker-alt"></i> 当前位置</h3>
+                <div class="location-details">
+                    <p id="locationAddress">正在获取位置...</p>
+                    <p id="locationCoordinates">坐标: 获取中...</p>
+                </div>
+                <button class="btn-secondary" id="refreshLocationBtn">
+                    <i class="fas fa-sync-alt"></i> 刷新位置
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 弹窗蒙版 -->
+    <div class="plan-actions-overlay"></div>
+
+    <!-- 模态框 -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">提醒</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 模态框内容 -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="modalConfirm">确定</button>
+                <button class="btn-secondary" id="modalCancel">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 地图模态框 -->
+    <div class="modal" id="mapModal">
+        <div class="modal-content map-modal-content">
+            <div class="modal-header">
+                <h3 id="mapModalTitle">路线导航</h3>
+                <button class="modal-close" id="mapModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="map-container" id="mapContainer">
+                    <!-- 地图将在这里显示 -->
+                    <div class="map-placeholder">
+                        <i class="fas fa-map"></i>
+                        <p>地图加载中...</p>
+                    </div>
+                </div>
+                <div class="route-info" id="routeInfo">
+                    <div class="route-details">
+                        <div class="route-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="routeOrigin">出发地</span>
+                        </div>
+                        <div class="route-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="routeDestination">目的地</span>
+                        </div>
+                    </div>
+                    <div class="route-actions">
+                        <button class="btn-primary" id="openAmapBtn">
+                            <i class="fas fa-external-link-alt"></i>
+                            打开高德地图
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 评论区模态框 -->
+    <div class="modal" id="commentModal">
+        <div class="modal-content comment-modal-content">
+            <div class="modal-header">
+                <h3 id="commentModalTitle">计划评论</h3>
+                <button class="modal-close" id="commentModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="plan-info" id="commentPlanInfo">
+                    <!-- 计划信息将在这里显示 -->
+                </div>
+                <div class="comments-section">
+                    <div class="comments-header">
+                        <h4>评论区</h4>
+                        <div class="comments-stats">
+                            <span id="commentsCount">0</span> 条评论
+                            <span class="divider">|</span>
+                            <span id="averageRating">0.0</span> 分
+                        </div>
+                    </div>
+                    <div class="comments-list" id="commentsList">
+                        <!-- 评论列表将在这里显示 -->
+                    </div>
+                    <div class="comment-form">
+                        <div class="comment-form-header">
+                            <h5>分享您的体验</h5>
+                        </div>
+                        <textarea id="commentInput" placeholder="分享您的体验和感受..." rows="3"></textarea>
+                        <div class="image-upload-section">
+                            <label for="imageUpload" class="image-upload-label">
+                                <i class="fas fa-camera"></i>
+                                <span>添加图片</span>
+                            </label>
+                            <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                            <div class="image-preview" id="imagePreview"></div>
+                        </div>
+                        <div class="comment-form-actions">
+                            <div class="rating-section">
+                                <span>评分：</span>
+                                <div class="rating-stars" id="ratingStars">
+                                    <i class="far fa-star" data-rating="1"></i>
+                                    <i class="far fa-star" data-rating="2"></i>
+                                    <i class="far fa-star" data-rating="3"></i>
+                                    <i class="far fa-star" data-rating="4"></i>
+                                    <i class="far fa-star" data-rating="5"></i>
+                                </div>
+                                <span class="rating-text" id="ratingText">点击星星评分</span>
+                            </div>
+                            <button class="btn-primary" id="submitCommentBtn">
+                                <i class="fas fa-paper-plane"></i>
+                                提交评论
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 权限请求模态框 -->
+    <div class="permission-modal" id="permissionModal" style="display: none;">
+        <div class="permission-content">
+            <div class="permission-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>需要位置权限</h3>
+            <p>为了提供更好的旅行体验，我们需要获取您的位置信息来显示当前位置和导航功能。</p>
+            <div class="permission-buttons">
+                <button class="btn-primary" id="grantPermissionBtn">允许</button>
+                <button class="btn-secondary" id="denyPermissionBtn">拒绝</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片查看模态框 -->
+    <div class="image-modal" id="imageModal" style="display: none;">
+        <div class="image-modal-content">
+            <img id="imageModalImg" src="" alt="评论图片">
+            <button class="image-modal-close" id="imageModalClose">&times;</button>
+        </div>
+    </div>
+
+    <script src="trip.js"></script>
+</body>
+</html> 
