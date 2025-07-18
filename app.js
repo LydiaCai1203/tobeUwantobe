@@ -35,6 +35,11 @@ class OwlApp {
         this.createPlanActions(); // 创建蒙版
         this.initAppData(); // 初始化应用数据
         setInterval(() => this.updateCurrentTime(), 1000);
+        // 强制隐藏header发布按钮，防止初始闪现
+        const postMomentBtnHeader = document.getElementById('postMomentBtnHeader');
+        if (postMomentBtnHeader) postMomentBtnHeader.style.display = 'none';
+        // 再同步一次页面状态
+        this.switchPage('home');
     }
 
     // 初始化应用数据
@@ -3375,6 +3380,7 @@ class OwlApp {
         // 热门行程页面现在主要显示路线选择器
         // 可以在这里添加其他热门内容，比如推荐行程、用户评价等
         const hotTripsList = document.getElementById('hotTripsList');
+        if (!hotTripsList) return;
         hotTripsList.innerHTML = `
             <div class="hot-trips-section">
                 <h3>🌟 推荐行程</h3>
