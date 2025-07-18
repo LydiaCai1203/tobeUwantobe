@@ -2876,25 +2876,38 @@ body::after {
     border: 3px solid rgba(76, 175, 80, 0.3);
 }
 
-.avatar-edit {
+.avatar-upload {
+    position: relative;
+}
+
+.avatar-upload .avatar-edit {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 25px;
-    height: 25px;
-    background: #4caf50;
+    bottom: 8px;
+    right: 8px;
+    background: #fff;
     border-radius: 50%;
+    padding: 7px;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.18), 0 0 0 2px #e0f2f1;
+    border: 2px solid #4caf50;
+    cursor: pointer;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
 }
-
-.avatar-edit:hover {
-    transform: scale(1.1);
+.avatar-upload .avatar-edit i {
+    color: #4caf50;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+}
+.avatar-upload .avatar-edit:hover {
+    background: #e8f5e9;
+    border-color: #388e3c;
+    box-shadow: 0 4px 16px rgba(56,142,60,0.18), 0 0 0 2px #c8e6c9;
+}
+.avatar-upload .avatar-edit:hover i {
+    color: #388e3c;
 }
 
 .profile-name {
@@ -3011,7 +3024,7 @@ body::after {
 .form-group textarea:focus {
     outline: none;
     border-color: #4caf50;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
 }
 
 .avatar-upload {
@@ -3464,4 +3477,123 @@ body::after {
 .modal, .modal-content, .modal *, .modal-content * {
   transition: none !important;
   animation: none !important;
+}
+
+/* --- 编辑资料弹窗按钮美化 --- */
+.avatar-upload button {
+  /* 继承 btn-secondary 基础样式 */
+  background: #f8f9fa;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.7rem 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: none;
+  width: auto;
+  min-width: 110px;
+}
+.avatar-upload button:hover {
+  background: #667eea;
+  color: #fff;
+}
+
+/* 优化弹窗底部按钮区域 */
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+.modal-footer button {
+  width: 120px;
+  min-width: 100px;
+  max-width: 160px;
+  font-size: 1rem;
+  border-radius: 22px;
+  padding: 0.8rem 0;
+  box-shadow: 0 2px 8px rgba(76,175,80,0.07);
+}
+
+/* 让 btn-primary/btn-secondary 在弹窗内更协调 */
+#editProfileModal .btn-primary,
+#editProfileModal .btn-secondary {
+  font-size: 1rem;
+  border-radius: 22px;
+  padding: 0.8rem 0;
+  width: 120px;
+  min-width: 100px;
+  max-width: 160px;
+  margin: 0;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .modal-footer {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .modal-footer button {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .avatar-upload button {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 强制覆盖选择图片按钮的样式，防止被.btn-secondary原样式覆盖 */
+.avatar-upload .btn-secondary {
+  background: #f8f9fa !important;
+  color: #667eea !important;
+  border: 2px solid #667eea !important;
+  border-radius: 20px !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  padding: 0.7rem 1.2rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  box-shadow: none !important;
+  width: auto !important;
+  min-width: 110px !important;
+}
+.avatar-upload .btn-secondary:hover {
+  background: #667eea !important;
+  color: #fff !important;
+}
+
+/* 只在编辑资料弹窗内美化选择图片按钮，避免影响全局 */
+#editProfileModal .avatar-upload .btn-secondary {
+  background: #f8f9fa !important;
+  color: #667eea !important;
+  border: 2px solid #667eea !important;
+  border-radius: 20px !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  padding: 0.7rem 1.2rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  box-shadow: none !important;
+  width: auto !important;
+  min-width: 110px !important;
+}
+#editProfileModal .avatar-upload .btn-secondary:hover {
+  background: #667eea !important;
+  color: #fff !important;
 }

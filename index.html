@@ -284,6 +284,91 @@
             </div>
         </div>
 
+        <!-- 编辑资料页面 -->
+        <div class="modal" id="editProfileModal" style="display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.32); z-index: 2000;">
+            <div class="wx-edit-profile" style="max-width: 600px; width: 96vw; margin: 0 auto; background: #fff; border-radius: 18px; box-shadow: 0 8px 40px rgba(76,175,80,0.18); position: relative; padding: 2.2rem 2.2rem 1.2rem 2.2rem;">
+                <div class="wx-edit-list" style="border-radius: 18px 18px 0 0; overflow: hidden;">
+                    <div class="wx-edit-item wx-edit-avatar" id="editAvatarRow" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f0f0f0; min-height: 64px; padding: 0 1.2rem; cursor: pointer;">
+                        <div class="wx-edit-label" style="color: #888; font-size: 0.98rem;">头像</div>
+                        <div class="wx-edit-avatar-box" style="display: flex; align-items: center; gap: 0.7rem;">
+                            <img id="editAvatarImg" src="https://picsum.photos/100/100?random=1" alt="头像" style="width: 54px; height: 54px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 8px rgba(76,175,80,0.10);">
+                            <input type="file" id="editAvatarInput" accept="image/*" style="display:none;">
+                            <i class="fas fa-chevron-right wx-edit-arrow" style="color: #bbb; font-size: 1rem;"></i>
+                        </div>
+                    </div>
+                    <div class="wx-edit-item" id="editNicknameRow" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f0f0f0; min-height: 52px; padding: 0 1.2rem;">
+                        <div class="wx-edit-label" style="color: #888; font-size: 0.98rem; width: 60px;">昵称</div>
+                        <div class="wx-edit-value" style="flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;">
+                            <span id="editNicknameDisplay" style="font-size: 1rem; color: #222; cursor: pointer; padding: 0.1em 0.3em; border-radius: 6px; transition: background 0.2s; text-align: right;">小青蛙</span>
+                            <input type="text" id="editNicknameInput" value="小青蛙" maxlength="12" style="display: none; font-size: 1rem; color: #222; border: 1.5px solid #4caf50; border-radius: 6px; padding: 0.1em 0.5em; background: #fff; outline: none; min-width: 80px; text-align: right;" />
+                            <i class="fas fa-chevron-right wx-edit-arrow" style="color: #bbb; font-size: 1rem;"></i>
+                        </div>
+                    </div>
+                    <div class="wx-edit-item" id="editBioRow" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 1.2rem;">
+                        <div class="wx-edit-label" style="color: #888; font-size: 0.98rem; width: 60px;">签名</div>
+                        <div class="wx-edit-value" style="flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;">
+                            <span id="editBioDisplay" style="font-size: 0.95rem; color: #689f38; cursor: pointer; padding: 0.1em 0.3em; border-radius: 6px; transition: background 0.2s; text-align: right;">热爱旅行的小青蛙 🐸</span>
+                            <input type="text" id="editBioInput" value="热爱旅行的小青蛙 🐸" maxlength="30" style="display: none; font-size: 0.95rem; color: #689f38; border: 1.5px solid #4caf50; border-radius: 6px; padding: 0.1em 0.5em; background: #fff; outline: none; min-width: 120px; text-align: right;" />
+                            <i class="fas fa-chevron-right wx-edit-arrow" style="color: #bbb; font-size: 1rem;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="wx-edit-btn-row" style="display: flex; gap: 12rem; justify-content: center; align-items: center; padding: 2rem 0 0.5rem 0; width: auto;">
+                    <button type="button" class="btn-primary" id="saveProfileBtn" style="min-width: 120px; width: 120px;">保存</button>
+                    <button type="button" class="btn-secondary" id="cancelEditProfileBtn" style="min-width: 120px; width: 120px;">取消</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设置弹窗 -->
+        <div class="modal" id="settingsModal" style="display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.32); z-index: 2000;">
+            <div class="settings-card" style="max-width: 500px; width: 96vw; background: #fff; border-radius: 24px; box-shadow: 0 8px 40px rgba(76,175,80,0.13); position: relative; padding: 0 0 2.2rem 0;">
+                <div class="settings-header" style="height: 56px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f0f0f0; position: relative; border-radius: 24px 24px 0 0;">
+                    <span style="font-size: 1.18rem; font-weight: 700; color: #2d5016;">设置</span>
+                    <i class="fas fa-times settings-close" id="settingsCloseBtn" style="position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); color: #bbb; font-size: 1.4rem; cursor: pointer;"></i>
+                </div>
+                <div class="settings-list" style="margin: 2rem 2.2rem 0 2.2rem; border-radius: 16px; background: #fafbfa; overflow: hidden; box-shadow: 0 2px 8px rgba(76,175,80,0.03);">
+                    <div class="settings-item" style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 1.2rem; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: background 0.18s;">
+                        <span style="color: #444; font-size: 1rem;">账号安全</span>
+                        <i class="fas fa-chevron-right" style="color: #bbb; font-size: 1rem;"></i>
+                    </div>
+                    <div class="settings-item" style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 1.2rem; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: background 0.18s;">
+                        <span style="color: #444; font-size: 1rem;">通知设置</span>
+                        <i class="fas fa-chevron-right" style="color: #bbb; font-size: 1rem;"></i>
+                    </div>
+                    <div class="settings-item" style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 1.2rem; border-bottom: 1px solid #f0f0f0; transition: background 0.18s;">
+                        <span style="color: #444; font-size: 1rem;">深色模式</span>
+                        <label class="switch" style="margin-left: 1rem;">
+                            <input type="checkbox" id="darkModeSwitch" style="display: none;">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item" style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 1.2rem; cursor: pointer; transition: background 0.18s;">
+                        <span style="color: #444; font-size: 1rem;">关于</span>
+                        <i class="fas fa-chevron-right" style="color: #bbb; font-size: 1rem;"></i>
+                    </div>
+                </div>
+                <div class="settings-list" style="margin: 2.2rem 2.2rem 0 2.2rem; border-radius: 16px; background: #fafbfa; overflow: hidden; box-shadow: 0 2px 8px rgba(76,175,80,0.03);">
+                    <div class="settings-item logout-item" id="logoutBtn" style="display: flex; align-items: center; justify-content: center; height: 56px; color: #e53935; font-weight: 600; font-size: 1rem; cursor: pointer; letter-spacing: 1px;">退出登录</div>
+                </div>
+            </div>
+        </div>
+<!-- 美化开关控件 -->
+<style>
+.switch { position: relative; display: inline-block; width: 38px; height: 22px; }
+.switch .slider {
+  position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+  background: #e0e0e0; border-radius: 22px; transition: .3s; box-shadow: 0 1px 4px rgba(76,175,80,0.07);
+}
+.switch input:checked + .slider { background: #4caf50; }
+.switch .slider:before {
+  position: absolute; content: ""; height: 18px; width: 18px; left: 2px; bottom: 2px;
+  background: #fff; border-radius: 50%; transition: .3s; box-shadow: 0 1px 4px rgba(76,175,80,0.10);
+}
+.switch input:checked + .slider:before { transform: translateX(16px); }
+.settings-item:hover { background: #f5f5f5 !important; }
+</style>
+
         <!-- 底部导航栏 -->
         <nav class="bottom-nav">
             <div class="nav-item active" data-page="home">
@@ -307,42 +392,6 @@
                 <span>我的</span>
             </div>
         </nav>
-
-        <!-- 编辑资料模态框 -->
-        <div class="modal" id="editProfileModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>编辑资料</h3>
-                    <button class="modal-close" id="editProfileClose">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="edit-form">
-                        <div class="form-group">
-                            <label>昵称</label>
-                            <input type="text" id="editName" placeholder="请输入昵称">
-                        </div>
-                        <div class="form-group">
-                            <label>个性签名</label>
-                            <textarea id="editBio" placeholder="介绍一下自己吧..." rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>更换头像</label>
-                            <div class="avatar-upload">
-                                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                                <button class="btn-secondary" onclick="document.getElementById('avatarUpload').click()">
-                                    <i class="fas fa-upload"></i>
-                                    选择图片
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-primary" id="saveProfileBtn">保存</button>
-                    <button class="btn-secondary" id="cancelEditBtn">取消</button>
-                </div>
-            </div>
-        </div>
 
         <!-- 发布动态模态框 -->
         <div class="modal" id="postMomentModal">

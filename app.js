@@ -81,11 +81,17 @@ class OwlApp {
             });
         }
 
-        // 编辑资料按钮
+        // 编辑资料按钮（显示弹窗）
         const editProfileBtn = document.getElementById('editProfileBtn');
         if (editProfileBtn) {
             editProfileBtn.addEventListener('click', () => {
-                this.showEditProfileModal();
+                document.getElementById('editProfileModal').style.display = 'flex';
+                // 同步当前资料到弹窗
+                document.getElementById('editNicknameDisplay').textContent = document.getElementById('profileName').textContent;
+                document.getElementById('editNicknameInput').value = document.getElementById('profileName').textContent;
+                document.getElementById('editBioDisplay').textContent = document.getElementById('profileBio').textContent;
+                document.getElementById('editBioInput').value = document.getElementById('profileBio').textContent;
+                document.getElementById('editAvatarImg').src = document.getElementById('avatarImg').src;
             });
         }
 
@@ -107,17 +113,23 @@ class OwlApp {
             });
         }
 
+        // 保存编辑资料
         const saveProfileBtn = document.getElementById('saveProfileBtn');
         if (saveProfileBtn) {
-            saveProfileBtn.addEventListener('click', () => {
-                this.saveProfile();
+            saveProfileBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('profileName').textContent = document.getElementById('editNicknameDisplay').textContent;
+                document.getElementById('profileBio').textContent = document.getElementById('editBioDisplay').textContent;
+                document.getElementById('avatarImg').src = document.getElementById('editAvatarImg').src;
+                document.getElementById('editProfileModal').style.display = 'none';
             });
         }
 
-        const cancelEditBtn = document.getElementById('cancelEditBtn');
-        if (cancelEditBtn) {
-            cancelEditBtn.addEventListener('click', () => {
-                this.hideEditProfileModal();
+        // 取消编辑资料
+        const cancelEditProfileBtn = document.getElementById('cancelEditProfileBtn');
+        if (cancelEditProfileBtn) {
+            cancelEditProfileBtn.addEventListener('click', function() {
+                document.getElementById('editProfileModal').style.display = 'none';
             });
         }
 
@@ -3497,3 +3509,153 @@ window.addEventListener('beforeunload', () => {
         window.owlApp.destroy();
     }
 }); 
+
+// 强制美化"选择图片"按钮
+function fixAvatarUploadBtnStyle() {
+  const btn = document.querySelector('#editProfileModal .avatar-upload .btn-secondary');
+  if (btn) {
+    btn.style.background = '#f8f9fa';
+    btn.style.color = '#667eea';
+    btn.style.border = '2px solid #667eea';
+    btn.style.borderRadius = '20px';
+    btn.style.fontSize = '0.95rem';
+    btn.style.fontWeight = '600';
+    btn.style.padding = '0.7rem 1.2rem';
+    btn.style.display = 'flex';
+    btn.style.alignItems = 'center';
+    btn.style.gap = '0.5rem';
+    btn.style.boxShadow = 'none';
+    btn.style.width = 'auto';
+    btn.style.minWidth = '110px';
+    btn.onmouseover = function() {
+      btn.style.background = '#667eea';
+      btn.style.color = '#fff';
+    };
+    btn.onmouseout = function() {
+      btn.style.background = '#f8f9fa';
+      btn.style.color = '#667eea';
+    };
+  }
+}
+
+// 每次弹窗显示时都修正一次
+const editProfileBtn = document.getElementById('editProfileBtn');
+if (editProfileBtn) {
+  editProfileBtn.addEventListener('click', () => {
+    setTimeout(fixAvatarUploadBtnStyle, 100); // 弹窗动画后再修正
+  });
+} 
+
+// 编辑资料页面头像更换
+const editAvatarCamera = document.getElementById('editAvatarCamera');
+const editAvatarInput = document.getElementById('editAvatarInput');
+if (editAvatarCamera && editAvatarInput) {
+    editAvatarCamera.addEventListener('click', function() {
+        editAvatarInput.click();
+    });
+    editAvatarInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                document.getElementById('editAvatarImg').src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+} 
+
+// 可编辑昵称
+const editNicknameDisplay = document.getElementById('editNicknameDisplay');
+const editNicknameInput = document.getElementById('editNicknameInput');
+if (editNicknameDisplay && editNicknameInput) {
+    editNicknameDisplay.addEventListener('click', function() {
+        editNicknameDisplay.style.display = 'none';
+        editNicknameInput.style.display = 'inline-block';
+        editNicknameInput.focus();
+        editNicknameInput.select();
+    });
+    function saveNickname() {
+        let val = editNicknameInput.value.trim();
+        if (!val) val = '小青蛙';
+        editNicknameDisplay.textContent = val;
+        editNicknameInput.value = val;
+        editNicknameDisplay.style.display = 'inline-block';
+        editNicknameInput.style.display = 'none';
+    }
+    editNicknameInput.addEventListener('blur', saveNickname);
+    editNicknameInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            saveNickname();
+        }
+    });
+}
+// 可编辑简介
+const editBioDisplay = document.getElementById('editBioDisplay');
+const editBioInput = document.getElementById('editBioInput');
+if (editBioDisplay && editBioInput) {
+    editBioDisplay.addEventListener('click', function() {
+        editBioDisplay.style.display = 'none';
+        editBioInput.style.display = 'inline-block';
+        editBioInput.focus();
+        editBioInput.select();
+    });
+    function saveBio() {
+        let val = editBioInput.value.trim();
+        if (!val) val = '热爱旅行的小青蛙 🐸';
+        editBioDisplay.textContent = val;
+        editBioInput.value = val;
+        editBioDisplay.style.display = 'inline-block';
+        editBioInput.style.display = 'none';
+    }
+    editBioInput.addEventListener('blur', saveBio);
+    editBioInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            saveBio();
+        }
+    });
+}
+// 保存按钮同步到我的页面
+const saveProfileBtn2 = document.getElementById('saveProfileBtn');
+if (saveProfileBtn2) {
+    saveProfileBtn2.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('profileName').textContent = editNicknameDisplay.textContent;
+        document.getElementById('profileBio').textContent = editBioDisplay.textContent;
+        document.getElementById('avatarImg').src = document.getElementById('editAvatarImg').src;
+        document.getElementById('editProfilePage').style.display = 'none';
+        document.getElementById('profilePage').style.display = 'block';
+    });
+}
+
+// 设置按钮弹窗逻辑
+const settingsBtn = document.querySelector('.menu-item i.fa-cog')?.parentElement;
+if (settingsBtn) {
+    settingsBtn.addEventListener('click', function() {
+        document.getElementById('settingsModal').style.display = 'flex';
+    });
+}
+const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+if (settingsCloseBtn) {
+    settingsCloseBtn.addEventListener('click', function() {
+        document.getElementById('settingsModal').style.display = 'none';
+    });
+}
+document.getElementById('settingsModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.style.display = 'none';
+    }
+});
+// 深色模式切换（仅切body类，实际可扩展）
+const darkModeSwitch = document.getElementById('darkModeSwitch');
+if (darkModeSwitch) {
+    darkModeSwitch.addEventListener('change', function() {
+        if (this.checked) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    });
+}
